@@ -1,0 +1,48 @@
+body {
+    background-color: #4763a7;
+}
+
+.card {
+    border-radius: 8px;
+    border: none;
+}
+
+
+.signin-link {
+    color: #db0a5b;
+    font-weight: 600;
+}
+
+.signin-link:hover {
+    color: #b90b4f;
+}
+
+.form-control {
+    margin-top: 13px;
+    height: 49px !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border: 1px solid #db0a5b;
+}
+
+.form-check-input {
+    border: 1px solid #F44336;
+}
+
+.form-check-input:checked {
+    background-color: #F44336;
+    border-color: #F44336;
+}
+
+.form-check-input:focus {
+    border-color: #e10a5b;
+    outline: 0;
+    box-shadow: none;
+}
+
+.button {
+    height: 40px;
+    border-radius: 4px;
+}
