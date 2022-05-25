@@ -30,7 +30,8 @@
 						</ul>
 						<div class="col-md-3 text-end mb-2">
 							<div class="btn-group">
-								<button type="button" class="btn btn-outline-secondary px-3 mx-2">
+								<!--CART BUTTON TO ACTIVE CART MODAL-->
+								<button type="button" class="btn btn-outline-secondary px-3 mx-2" data-bs-toggle="modal" data-bs-target="#CartModal">
 									<i class="fa-solid fa-cart-shopping"></i>
 								</button>
 							</div>
@@ -163,6 +164,74 @@
 											<button type="submit" class="btn btn-primary">SUBMIT</button>
 										</div>
 									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- CART MODAL -->
+					<div class="modal fade" id="CartModal" tabindex="-1" aria-labelledby="CartModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title text-capitalize" id="CartModalLabel">
+										MY CART
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<table class="table table-responsive cartTable">
+										<thead>
+											<tr>
+												<th scope="col"></th>
+												<th scope="col">Product</th>
+												<th scope="col">Price</th>
+												<th scope="col">Qty</th>
+												<th scope="col">Total</th>
+												<th scope="col">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="w-25">
+													<img src="/resources/img/dia-danh-nao-duoc-in-tren-to-tien-cotton-50-000-vnd-1.jpg" alt=""
+														class="img-fluid img-thumbnail">
+												</td>
+												<td>Vietnamdong 50.000 Note</td>
+												<td>5$</td>
+												<td class="qty"><input type="text" class="form-control" name="qty" id="qty" value="3"></td>
+												<td>15$</td>
+												<td>
+													<a href="#" class="btn btn-danger btn-sm">
+														<i class="fa fa-times"></i>
+													</a>
+												</td>
+											</tr>
+											<tr>
+												<td class="w-25">
+													<img src="/resources/img/dia-danh-nao-duoc-in-tren-to-tien-cotton-50-000-vnd-1.jpg" alt=""
+														class="img-fluid img-thumbnail">
+												</td>
+												<td>Vietnamdong 50.000 Note</td>
+												<td>5$</td>
+												<td class="qty"><input type="text" class="form-control" name="qty" id="qty" value="3"></td>
+												<td>15$</td>
+												<td>
+													<a href="#" class="btn btn-danger btn-sm">
+														<i class="fa fa-times"></i>
+													</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="d-flex justify-content-end">
+										<h5>Total: <span class="text-success ms-3">15$</span></h5>
+									</div>
+								</div>
+								<div class="modal-footer border-top-0 d-flex justify-content-between">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
+										data-bs-target="#CartModal">Cancel</button>
+									<button type="button" class="btn btn-success">Checkout</button>
 								</div>
 							</div>
 						</div>
