@@ -19,4 +19,9 @@ public class HomeController {
 	public String contactus() {
 		return "contact-us";
 	}
+
+	@GetMapping("detail")
+	public String detail() {
+		return "detail";
+	}
 }

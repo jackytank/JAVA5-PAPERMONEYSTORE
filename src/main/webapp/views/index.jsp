@@ -38,7 +38,7 @@
 											<div class="card-body">
 												<h5 class="card-title">Vietnamdong 50.000 Notes</h5>
 												<p class="card-text">Price: <span class="fw-bold">5$</span></p>
-												<a href="#" class="btn btn-secondary">Detail</a> <a href="#" class="btn btn-primary">Buy</a>
+												<a href="detail" class="btn btn-secondary">Detail</a> <a href="#" class="btn btn-primary">Buy</a>
 											</div>
 										</div>
 									</div>
@@ -49,7 +49,7 @@
 											<div class="card-body">
 												<h5 class="card-title">Vietnamdong 50.000 Notes</h5>
 												<p class="card-text">Price: <span class="fw-bold">5$</span></p>
-												<a href="#" class="btn btn-secondary">Detail</a> <a href="#" class="btn btn-primary">Buy</a>
+												<a href="detail" class="btn btn-secondary">Detail</a> <a href="#" class="btn btn-primary">Buy</a>
 											</div>
 										</div>
 									</div>
@@ -60,7 +60,7 @@
 											<div class="card-body">
 												<h5 class="card-title">Vietnamdong 50.000 Notes</h5>
 												<p class="card-text">Price: <span class="fw-bold">5$</span></p>
-												<a href="#" class="btn btn-secondary">Detail</a> <a href="#" class="btn btn-primary">Buy</a>
+												<a href="detail" class="btn btn-secondary">Detail</a> <a href="#" class="btn btn-primary">Buy</a>
 											</div>
 										</div>
 									</div>
@@ -71,7 +71,7 @@
 											<div class="card-body">
 												<h5 class="card-title">Vietnamdong 50.000 Notes</h5>
 												<p class="card-text">Price: <span class="fw-bold">5$</span></p>
-												<a href="#" class="btn btn-secondary">Detail</a> <a href="#" class="btn btn-primary">Buy</a>
+												<a href="detail" class="btn btn-secondary">Detail</a> <a href="#" class="btn btn-primary">Buy</a>
 											</div>
 										</div>
 									</div>

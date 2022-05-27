@@ -60,7 +60,7 @@
 					</div>
 
 					<!-- second navbar header -->
-					<div class="py-3 mb-3 border-bottom">
+					<div class="py-3 mb-2 border-bottom">
 						<div class="container d-flex justify-content-center">
 							<ul class="nav">
 								<li class="nav-item"><a href="/" class="nav-link text-dark">SHOP</a></li>
@@ -237,6 +237,14 @@
 						</div>
 					</div>
 				</header>
+				<!-- marquee - running text -->
+				<font>
+					<marquee class="my-1" direction="left" style="background:rgb(14, 158, 248)">
+						<div class="text-light mt-1">
+							<h5>Contact to buy products early to receive immediately preferential policies for pre-order customers!</h5>
+						</div>
+					</marquee>
+				</font>
 			</body>
 
 			</html>
