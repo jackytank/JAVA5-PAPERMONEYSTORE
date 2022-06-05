@@ -38,13 +38,13 @@
 										<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#SignupModal">Signup</a></li>
 										<!--FORGOT PASSWORD BUTTON TO ACTIVE FORGOT PASSWORD MODAL-->
 										<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ForgotPasswordModal">Forgot password</a>
-									</c:if>
-									<c:if test="${isLogin}">
-										<!--CHANGE PASSWORD BUTTON TO ACTIVE CHANGE PASSWORD MODAL-->
+											<!--CHANGE PASSWORD BUTTON TO ACTIVE CHANGE PASSWORD MODAL-->
 										<li>
 											<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ChangePasswordModal">Change password</a>
 										</li>
 										<li><a class="dropdown-item" href="#">Logout</a></li>
+									</c:if>
+									<c:if test="${isLogin}">
 									</c:if>
 								</ul>
 							</div>
