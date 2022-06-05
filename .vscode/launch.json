@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Java5AssmApplication<JAVA5-ASSM>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.edu.Java5AssmApplication",
+            "projectName": "JAVA5-ASSM",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
