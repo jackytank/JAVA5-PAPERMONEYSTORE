@@ -5,7 +5,7 @@
 			<header>
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between  border-bottom">
 					<div class="d-flex align-items-center col-md-3 mb-2 mb-md-0 ">
-						<form action="/product/search-and-page-bai6" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0">
+						<form action="/product/search" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0">
 							<div class="input-group">
 								<span class="input-group-text"> <i class="fa-solid fa-magnifying-glass"></i>
 								</span> <input name="keywords" value=""${keywords}" type="search" class="form-control shadow-none" placeholder="Search..." aria-label="Search">

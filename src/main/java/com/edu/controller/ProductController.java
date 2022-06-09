@@ -43,7 +43,7 @@ public class ProductController {
         model.addAttribute("relevantProducts", relevantProducts);
         return "user/detail";
     }
-    @RequestMapping("/search-and-page-bai6")
+    @RequestMapping("/search")
     public String searchAndPage1(ModelMap model, @RequestParam("keywords") Optional<String> kw,
             @RequestParam("page") Optional<Integer> page) {
         String kwords = kw.orElse(sessionService.get("keywords"));
@@ -57,7 +57,7 @@ public class ProductController {
            
              try {
                Double dPrice = Double.parseDouble(kwords);
-                pages = productDAO.findAllByPriceIs( dPrice , pageable);
+                pages = productDAO.findAllByPriceIs(dPrice , pageable);
            } catch (Exception e2) {
                pages = productDAO.findAllByNameLike("%" + kwords + "%", pageable);
            }
