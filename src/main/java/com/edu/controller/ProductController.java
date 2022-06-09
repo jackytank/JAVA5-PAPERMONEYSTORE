@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.edu.dao.ProductDAO;
 import com.edu.entity.Product;
+import com.edu.service.SessionService;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
     ProductDAO productDAO;
+    @Autowired
+    SessionService sessionService;
 
     @RequestMapping("/page")
     public String paginate(ModelMap model, @RequestParam("page") Optional<Integer> page) {
@@ -39,5 +42,28 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("relevantProducts", relevantProducts);
         return "user/detail";
+    }
+    @RequestMapping("/search-and-page-bai6")
+    public String searchAndPage1(ModelMap model, @RequestParam("keywords") Optional<String> kw,
+            @RequestParam("page") Optional<Integer> page) {
+        String kwords = kw.orElse(sessionService.get("keywords"));
+        sessionService.set("keywords", kwords);
+        Pageable pageable = PageRequest.of(page.orElse(0), 5);
+        Page<Product> pages = productDAO.findAllThings(kwords, pageable); 
+        
+       
+        
+       
+           
+             try {
+               Double dPrice = Double.parseDouble(kwords);
+                pages = productDAO.findAllByPriceIs( dPrice , pageable);
+           } catch (Exception e2) {
+               pages = productDAO.findAllByNameLike("%" + kwords + "%", pageable);
+           }
+
+         
+        model.addAttribute("page", pages);
+        return "user/index";
     }
 }
