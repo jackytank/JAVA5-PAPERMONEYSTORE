@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.web.multipart.MultipartFile;
+
 @Entity
 @Table(name = "Accounts")
 public class Account {
@@ -34,7 +36,7 @@ public class Account {
     private Boolean activated = false;
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
@@ -42,7 +44,7 @@ public class Account {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -50,7 +52,7 @@ public class Account {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -58,7 +60,7 @@ public class Account {
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
 
     public void setPhone(String phone) {
@@ -66,15 +68,19 @@ public class Account {
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
+    public Boolean isAdmin() {
+        return this.admin;
+    }
+
     public Boolean getAdmin() {
-        return admin;
+        return this.admin;
     }
 
     public void setAdmin(Boolean admin) {
@@ -82,19 +88,37 @@ public class Account {
     }
 
     public String getImage() {
-        return image;
+        return this.image;
     }
 
     public void setImage(String image) {
         this.image = image;
     }
 
+    public Boolean isActivated() {
+        return this.activated;
+    }
+
     public Boolean getActivated() {
-        return activated;
+        return this.activated;
     }
 
     public void setActivated(Boolean activated) {
         this.activated = activated;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " id='" + getId() + "'" +
+                ", email='" + getEmail() + "'" +
+                ", password='" + getPassword() + "'" +
+                ", phone='" + getPhone() + "'" +
+                ", address='" + getAddress() + "'" +
+                ", admin='" + isAdmin() + "'" +
+                ", image='" + getImage() + "'" +
+                ", activated='" + isActivated() + "'" +
+                "}";
     }
 
 }

@@ -14,7 +14,7 @@
 					</div>
 					<ul class="justify-content-center">
 						<a href="/" class="text-dark text-decoration-none fw-bold"> <img class="bi d-block mx-auto mb-1" width="70"
-								src="/resources/img/logo1.png" alt=""> <span>PaperMoneyStore</span>
+								src="/img/logo1.png" alt=""> <span>PaperMoneyStore</span>
 						</a>
 					</ul>
 					<div class="col-md-3 text-end mb-2">

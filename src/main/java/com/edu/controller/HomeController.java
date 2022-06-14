@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.edu.dao.ProductDAO;
@@ -37,4 +38,11 @@ public class HomeController {
     public String contactus() {
         return "user/contact-us";
     }
+
+    @GetMapping("/admin/index")
+    public String admin() {
+        return "admin/index";
+    }
+
+
 }
