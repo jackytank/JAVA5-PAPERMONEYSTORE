@@ -41,13 +41,17 @@ public class HomeController {
     @GetMapping("/")
     public String paginate(@RequestParam Optional<Boolean> isLogin,
             @RequestParam(required = false) String sessionUsername,
+            @RequestParam(required = false) String error,
+            @RequestParam(required = false) String message,
             @RequestParam("page") Optional<Integer> page,
             ModelMap model) {
+        
         Pageable pageable = PageRequest.of(page.orElse(0), 6);
         Page<Product> pages = productDAO.findAll(pageable);
         model.addAttribute("page", pages);
         model.addAttribute("isLogin", isLogin.orElse(false));
         model.addAttribute("sessionUsername", sessionUsername);
+        model.addAttribute("message", message);
         return "/user/index";
     }
 

@@ -42,17 +42,17 @@
                                         <form:form action="" modelAttribute="ord">
                                             <div class="form-group mb-3">
                                                 <form:label path="id"> ID: </form:label>
-                                                <form:input path="id" class="form-control" type="text" />
+                                                <form:input path="id" class="form-control" type="text" readonly="true" />
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="address">ADDRESS</form:label>
-                                                <form:input path="address" class="form-control" type="text" />
+                                                <form:input path="address" class="form-control" type="text" readonly="true" />
                                             </div>
-                                             <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
                                                 <form:label path="createdate">CREATEDATE</form:label>
-                                                <form:input path="createdate" class="form-control" type="text" />
+                                                <form:input path="createdate" class="form-control" type="text" readonly="true" />
                                             </div>
-                                               <button class="btn btn-danger" formaction="/admin/order/delete/${ord.id}" formmethod="get">DELETE</button>
+                                            <button class="btn btn-danger" formaction="/admin/order/delete/${ord.id}" formmethod="get">DELETE</button>
                                             <button class="btn btn-info" formaction="/admin/order/" formmethod="get">RESET</button>
                                         </form:form>
                                     </div>
@@ -64,8 +64,8 @@
                                                 <tr>
                                                     <th scope="col">ID</th>
                                                     <th scope="col">ADDRESS</th>
-                                                     <th scope="col">DATE</th>
-                                                  
+                                                    <th scope="col">DATE</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -73,7 +73,7 @@
                                                     <tr>
                                                         <th scope="row">${item.id}</th>
                                                         <th>${item.address}</th>
-                                                         <th>${item.createdate}</th>
+                                                        <th>${item.createdate}</th>
                                                         <th class="text-end">
                                                             <a href="/admin/order/edit/${item.id}" class="btn btn-primary" role="button">=></a>
                                                             <a href="/admin/order/delete/${item.id}" class="btn btn-danger" role="button">Del</a>
@@ -90,9 +90,6 @@
 
                         <!-- header -->
                         <jsp:include page="common/footer.jsp"></jsp:include>
-
-
-
                     </body>
 
                     </html>

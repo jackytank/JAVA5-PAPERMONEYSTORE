@@ -35,6 +35,21 @@ public class Account {
     @Column(name = "activated", nullable = false)
     private Boolean activated = false;
 
+    public Account() {
+    }
+
+    public Account(String id, String email, String password, String phone, String address, Boolean admin, String image,
+            Boolean activated) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.admin = admin;
+        this.image = image;
+        this.activated = activated;
+    }
+
     public String getId() {
         return this.id;
     }

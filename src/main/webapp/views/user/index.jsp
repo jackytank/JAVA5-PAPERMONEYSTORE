@@ -61,6 +61,10 @@
 					<!-- footer -->
 					<jsp:include page="common/footer.jsp"></jsp:include>
 				</div>
+
+				<script>
+					if (("${param.message}" != "") || ("${message}" != "") || "${param.error}" != "") alert("Message: ${message}\nError: ${param.error}");
+				</script>
 			</body>
 
 			</html>

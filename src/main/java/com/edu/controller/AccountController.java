@@ -49,8 +49,29 @@ public class AccountController {
     @Autowired
     CookieService cookie;
 
+    @PostMapping("/account/process_register")
+    public ModelAndView processRegistration(@ModelAttribute("acc") AccountForm accountForm, ModelMap modelMap) {
+        System.out.println("accountForm" + accountForm.toString());
+
+        // check xem username da ton tai ko
+        if (dao.existsAccountById(accountForm.getId())) {
+            modelMap.addAttribute("message", "Username is already existed!!");
+            return new ModelAndView("redirect:/", modelMap);
+        }
+
+        Account account = new Account();
+        BeanUtils.copyProperties(accountForm, account);// copy thuoc tinh cua accountform vao account
+        account.setImage("default.jpg");
+        account.setAdmin(false);
+        account.setActivated(false);
+        System.out.println("account" + account.toString());
+        dao.save(account);
+        modelMap.addAttribute("message", "Signup success!! Username: " + account.getId());
+        return new ModelAndView("redirect:/", modelMap);
+    }
+
     @GetMapping("/account/login")
-    public String getLogin() {
+    public String getLogin(@RequestParam(required = false) String message) {
         return "user/login";
     }
 
@@ -65,6 +86,7 @@ public class AccountController {
             Account user = dao.findById(username).get();
             if (user != null && user.getPassword().equals(password)) {
                 session.set("user", user);
+                session.set("username", username);
                 String uri = session.get("security-uri");
                 System.out.println(uri);
                 if (uri != null) {
@@ -86,19 +108,53 @@ public class AccountController {
 
             } else {
                 model.addAttribute("message", "Invalid password");
+                return new ModelAndView("user/login", model);
             }
         } catch (Exception e) {
             model.addAttribute("message", "Invalid username");
+            return new ModelAndView("user/login", model);
         }
-        return null;
+    }
+
+    @RequestMapping("/account/changePassword")
+    public ModelAndView PostchangePassword(
+            @RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword,
+            @RequestParam("retypePassword") String retypePassword, ModelMap modelMap) {
+        modelMap.addAttribute("isLogin", true);
+        modelMap.addAttribute("sessionUsername", ((Account) session.get("user")).getId());
+        try {
+            Account user = dao.findById(session.get("username")).get();
+            if (user != null) {
+                if (!newPassword.equals(retypePassword)) {
+                    modelMap.addAttribute("error", "New password and confirm password didn't matched!!");
+                    return new ModelAndView("redirect:/", modelMap);
+                } else if (newPassword.equals("")
+                        || retypePassword.equals("")) {
+                    modelMap.addAttribute("error", "New password or confirm can't be empty!!");
+                    return new ModelAndView("redirect:/", modelMap);
+                } else {
+                    // if (user != null &&
+                    // user.getPassword().equals(changePasswordForm.getOldPassword())) {
+                    // if
+                    // (changePasswordForm.getNewPassword().endsWith(changePasswordForm.getRetypePassword()))
+                    // {
+                    user.setPassword(newPassword);
+                    dao.save(user);
+                    modelMap.addAttribute("message", "User password updated!!");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelMap.addAttribute("message", "Invalid password");
+        }
+        return new ModelAndView("redirect:/", modelMap);
     }
 
     @RequestMapping("/account/logout")
     public ModelAndView logout(ModelMap model) {
         session.remove("user");
+        session.remove("username");
         session.remove("security-uri");
-        cookie.remove("username");
-        cookie.remove("password");
         model.addAttribute("isLogin", false);
         return new ModelAndView("redirect:/", model);
     }
