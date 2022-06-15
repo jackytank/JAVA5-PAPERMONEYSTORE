@@ -68,8 +68,8 @@
                                             </li>
                                         </ul>
                                         <form class="d-flex">
-                                            <span class="align-self-center text-nowrap me-2">Hi <span class="fw-bold">Jackytank</span></span>
-                                            <a class="btn btn-danger">Logout</a>
+                                            <span class="align-self-center text-nowrap me-2">Hi <span class="fw-bold">${sessionUsername}</span></span>
+                                            <a href="/account/logout" class="btn btn-danger">Logout</a>
                                         </form>
                                     </div>
                                 </div>

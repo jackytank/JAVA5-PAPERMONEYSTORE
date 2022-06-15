@@ -23,27 +23,31 @@
           <jsp:include page="common/header.jsp"></jsp:include>
           <div class="row my-5">
             <div class="col-sm-6">
-              <form action="">
+              <form action="/contactus/send" method="post">
                 <div class="mb-3 mt-3">
                   <h4>CONTACT INFORMATION</h4>
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="name" class="form-label">Fullname:</label>
-                  <input type="text" class="form-control" placeholder="Fullname" name="name" />
+                  <input type="text" class="form-control" placeholder="Fullname" name="name" /><br>
+                  <label class="text-danger" >${invalidName}</label>
                 </div>
                 <div class="mb-3">
-                  <label for="sdt" class="form-label">Phone number:</label>
-                  <input type="type" class="form-control" placeholder="Phone number" name="phone" />
+                  <label for="phone" class="form-label">Phone number:</label>
+                  <input type="tel" class="form-control" placeholder="Phone number" name="phone" /><br>
+                  <label class="text-danger" >${invalidPhone}</label>
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="email" class="form-label">Email:</label>
-                  <input type="email" class="form-control" placeholder="Email" name="email" />
+                  <input type="email" class="form-control" placeholder="Email" name="email" /> <br>
+                  <label class="text-danger" >${invalidEmail}</label>
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="note" class="form-label">Note:</label> <br />
                   <textarea class="form-control" name="note" id="" cols="83" rows="2"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send</button>
+                <button type="submit" class="btn btn-primary">Send</button> <br>
+                <label class="text-success my-2 fs-3" >${message}</label>
               </form>
             </div>
             <div class="col-sm-6">

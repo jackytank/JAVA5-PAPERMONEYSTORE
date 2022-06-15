@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -57,32 +58,49 @@ public class AccountController {
     public ModelAndView postLogin(ModelMap model,
             @RequestParam("username") String username,
             @RequestParam("password") String password,
-            @RequestParam(value = "remember", required = false) String remember) {
+            @RequestParam(value = "remember", required = false) String remember,
+            @RequestParam(required = false) String sessionUsername) {
 
         try {
-            Account user = dao.getById(username);
+            Account user = dao.findById(username).get();
             if (user != null && user.getPassword().equals(password)) {
-                session.set("username", user.getId());
-                if (remember != null) {
-                    cookie.add("username", user.getId(), 24);
-                    cookie.add("password", user.getPassword(), 24);
+                session.set("user", user);
+                String uri = session.get("security-uri");
+                System.out.println(uri);
+                if (uri != null) {
+                    model.addAttribute("sessionUsername", user.getId());
+                    return new ModelAndView("redirect:" + uri, model);
                 } else {
-                    cookie.remove("username");
-                    cookie.remove("password");
-                }
-                model.addAttribute("isLogin", true);
-                if (user.getAdmin()) {
-                    return null;
-                } else {
+                    if (remember != null) {
+                        cookie.add("username", user.getId(), 24);
+                        cookie.add("password", user.getPassword(), 24);
+                    } else {
+                        cookie.remove("username");
+                        cookie.remove("password");
+                    }
+                    model.addAttribute("sessionUsername", user.getId());
+                    model.addAttribute("isLogin", true);
                     return new ModelAndView("redirect:/", model);
+
                 }
+
             } else {
-                return new ModelAndView("redirect:/account/login", model);
+                model.addAttribute("message", "Invalid password");
             }
         } catch (Exception e) {
             model.addAttribute("message", "Invalid username");
         }
-        return new ModelAndView("redirect:/account/login", model);
+        return null;
+    }
+
+    @RequestMapping("/account/logout")
+    public ModelAndView logout(ModelMap model) {
+        session.remove("user");
+        session.remove("security-uri");
+        cookie.remove("username");
+        cookie.remove("password");
+        model.addAttribute("isLogin", false);
+        return new ModelAndView("redirect:/", model);
     }
 
     // for admin

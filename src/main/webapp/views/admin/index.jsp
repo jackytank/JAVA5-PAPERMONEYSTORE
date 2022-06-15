@@ -24,7 +24,7 @@
                         <jsp:include page="common/header.jsp"></jsp:include>
 
 
-                        <main>
+                        <main class="m-5" style="min-height: 100vh;">
                             <h2>Homepage</h2>
                         </main>
 

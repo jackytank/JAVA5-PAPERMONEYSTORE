@@ -5,19 +5,23 @@
 			<header>
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between  border-bottom">
 					<div class="d-flex align-items-center col-md-3 mb-2 mb-md-0 ">
-						<form class="col-12 col-lg-auto mb-3 mb-lg-0">
+						<form action="/product/search" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0">
 							<div class="input-group">
 								<span class="input-group-text"> <i class="fa-solid fa-magnifying-glass"></i>
-								</span> <input type="search" class="form-control shadow-none" placeholder="Search..." aria-label="Search">
+								</span> <input name="keywords" value="${keywords}" type="text" class="form-control shadow-none" placeholder="Search..."
+									aria-label="Search">
 							</div>
 						</form>
 					</div>
 					<ul class="justify-content-center">
-						<a href="/" class="text-dark text-decoration-none fw-bold"> <img class="bi d-block mx-auto mb-1" width="70"
-								src="/img/logo1.png" alt=""> <span>PaperMoneyStore</span>
+						<a href="/" class="text-dark text-decoration-none fw-bold"> <img class="bi d-block mx-auto mb-1" width="70" src="/img/logo1.png" alt="">
+							<span>PaperMoneyStore</span>
 						</a>
 					</ul>
 					<div class="col-md-3 text-end mb-2">
+						<c:if test="${sessionUsername != null}">
+							<span class="align-self-center text-nowrap me-2">Hi <span class="fw-bold">${sessionUsername}</span></span>
+						</c:if>
 						<div class="btn-group">
 							<!--CART BUTTON -->
 							<a href="/cart/view" class="btn btn-outline-secondary px-3 mx-2">
@@ -31,6 +35,7 @@
 									<i class="fa-solid fa-user"></i>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="userDropdown">
+
 									<c:if test="${! isLogin}">
 										<!--LOGIN BUTTON TO ACTIVE LOGIN MODAL-->
 										<li><a class="dropdown-item" href="/account/login">Login</a></li>
@@ -39,12 +44,12 @@
 										<!--FORGOT PASSWORD BUTTON TO ACTIVE FORGOT PASSWORD MODAL-->
 										<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ForgotPasswordModal">Forgot password</a>
 											<!--CHANGE PASSWORD BUTTON TO ACTIVE CHANGE PASSWORD MODAL-->
+									</c:if>
+									<c:if test="${isLogin}">
+										<li><a class="dropdown-item" href="/account/logout">Logout</a></li>
 										<li>
 											<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ChangePasswordModal">Change password</a>
 										</li>
-										<li><a class="dropdown-item" href="#">Logout</a></li>
-									</c:if>
-									<c:if test="${isLogin}">
 									</c:if>
 								</ul>
 							</div>
