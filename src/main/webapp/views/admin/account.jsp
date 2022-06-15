@@ -85,7 +85,7 @@
                                             </div>
                                             <button class="btn btn-success" formaction="/admin/account/create" formmethod="post">CREATE</button>
                                             <button class="btn btn-secondary" formaction="/admin/account/update" formmethod="post">UPDATE</button>
-                                            <button class="btn btn-danger" formaction="/admin/account/delete/${category.id}" formmethod="get">DELETE</button>
+                                            <button class="btn btn-danger" formaction="/admin/account/delete/${account.id}" formmethod="get">DELETE</button>
                                             <button class="btn btn-info" formaction="/admin/account/" formmethod="get">RESET</button>
                                         </form:form>
                                     </div>

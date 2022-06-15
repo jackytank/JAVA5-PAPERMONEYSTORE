@@ -10,7 +10,7 @@
                         <meta charset="UTF-8">
                         <meta http-equiv="X-UA-Compatible" content="IE=edge">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Admin - Account</title>
+                        <title>Admin - Product</title>
 
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
                             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
@@ -44,7 +44,7 @@
                                                 <form:label path="image">Image: </form:label>
                                                 <figure>
                                                     <c:choose>
-                                                        <c:when test="${account.image != null}">
+                                                        <c:when test="${product.image != null}">
                                                             <img src="/img/${product.image}" alt="" class="img-fluid img-thumbnail" width="120" height="120">
                                                         </c:when>
                                                         <c:otherwise>
@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="id">Id: </form:label>
-                                                <form:input path="id" class="form-control" type="text" />
+                                                <form:input path="id" class="form-control" type="text" readonly="true" />
                                             </div>
 
                                             <div class="form-group mb-3">
@@ -70,20 +70,22 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="available">Available: </form:label>
-                                                <form:radiobutton id="isAvailable" path="available" value="0" />
-                                                <form:radiobutton id="isAvailable" path="available" value="1" />
+                                                <form:radiobutton id="isAvailable" path="available" value="1" /> True
+                                                <form:radiobutton id="isAvailable" path="available" value="0" /> False
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="createdate">Create date:</form:label>
-                                                <form:input path="createdate" class="form-control" type="date" />
+                                                <form:input path="createdate" class="form-control" type="date" readonly="true"/>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="categoryid">Category:</form:label>
+                                                <form:input path="categoryid" class="form-control" type="text" />
+                                                <span class="text-danger">${errorCategoryId}</span>
                                             </div>
-                                            <button class="btn btn-success" formaction="/admin/account/create" formmethod="post">CREATE</button>
-                                            <button class="btn btn-secondary" formaction="/admin/account/update" formmethod="post">UPDATE</button>
-                                            <button class="btn btn-danger" formaction="/admin/account/delete/${category.id}" formmethod="get">DELETE</button>
-                                            <button class="btn btn-info" formaction="/admin/account/" formmethod="get">RESET</button>
+                                            <button class="btn btn-success" formaction="/admin/product/create" formmethod="post">CREATE</button>
+                                            <button class="btn btn-secondary" formaction="/admin/product/update" formmethod="post">UPDATE</button>
+                                            <button class="btn btn-danger" formaction="/admin/product/delete/${product.id}" formmethod="get">DELETE</button>
+                                            <button class="btn btn-info" formaction="/admin/product/" formmethod="get">RESET</button>
                                         </form:form>
                                     </div>
 
@@ -112,10 +114,10 @@
                                                         <th>${item.price}</th>
                                                         <th>${item.available}</th>
                                                         <th>${item.createdate}</th>
-                                                        <th>${item.categoryid}</th>
+                                                        <th>${item.categoryid.name}</th>
                                                         <th class="text-end">
-                                                            <a href="/admin/account/edit/${item.id}" class="btn btn-primary" role="button">=></a>
-                                                            <a href="/admin/account/delete/${item.id}" class="btn btn-danger" role="button">Del</a>
+                                                            <a href="/admin/product/edit/${item.id}" class="btn btn-primary" role="button">=></a>
+                                                            <a href="/admin/product/delete/${item.id}" class="btn btn-danger" role="button">Del</a>
                                                         </th>
                                                     </tr>
                                                 </c:forEach>

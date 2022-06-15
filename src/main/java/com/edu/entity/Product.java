@@ -86,4 +86,17 @@ public class Product {
         this.categoryid = categoryid;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                " id='" + getId() + "'" +
+                ", name='" + getName() + "'" +
+                ", price='" + getPrice() + "'" +
+                ", image='" + getImage() + "'" +
+                ", available='" + getAvailable() + "'" +
+                ", createdate='" + getCreatedate() + "'" +
+                ", categoryid='" + getCategoryid() + "'" +
+                "}";
+    }
+
 }
