@@ -6,13 +6,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.dao.AccountDAO;
 import com.edu.dao.OrderDAO;
+import com.edu.dao.OrderDetailDAO;
 import com.edu.dao.ProductDAO;
 import com.edu.entity.Account;
 import com.edu.entity.Order;
 import com.edu.service.ParamService;
+import com.edu.service.SessionService;
 import com.edu.service.ShoppingCartService;
 
 @Controller
@@ -31,6 +34,12 @@ public class ShoppingCartController {
     OrderDAO orderDAO;
 
     @Autowired
+    OrderDetailDAO orderDetailDAO;
+
+    @Autowired
+    SessionService sessionService;
+
+    @Autowired
     ShoppingCartService cartService;
 
     @RequestMapping("/checkout/{username}")
@@ -40,6 +49,7 @@ public class ShoppingCartController {
         order.setAddress(acc.getAddress());
         order.setUsername(acc);
         orderDAO.save(order);
+
         return "redirect:/cart/view";
     }
 
@@ -51,9 +61,14 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/add/{id}")
-    public String add(@PathVariable("id") Integer id, ModelMap model) {
+    public ModelAndView add(@PathVariable("id") Integer id, ModelMap model) {
+
+        if ((String) sessionService.get("username") == null) {
+            model.addAttribute("error", "You must be logged in to add to cart");
+            return new ModelAndView("redirect:/account/login", model);
+        }
         cartService.add(id);
-        return "redirect:/";
+        return new ModelAndView("redirect:/");
     }
 
     @GetMapping("/remove/{id}")

@@ -26,10 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.dao.AccountDAO;
 import com.edu.dao.CategoryDAO;
+import com.edu.dao.OrderDetailDAO;
 import com.edu.dao.ProductDAO;
 import com.edu.entity.Account;
 import com.edu.entity.Category;
 import com.edu.entity.Product;
+import com.edu.entity.Report;
 import com.edu.model.AccountForm;
 import com.edu.service.CookieService;
 import com.edu.service.ParamService;
@@ -38,5 +40,13 @@ import com.edu.utils.CommonUtils;
 
 @Controller
 public class RevenueController {
-    
+    @Autowired
+    private OrderDetailDAO orderDetailDAO;
+
+    @RequestMapping("/admin/revenue")
+    public String revenue(ModelMap model) {
+        List<Report> reports = orderDetailDAO.revenueByCategory();
+        model.addAttribute("reports", reports);
+        return "admin/revenue";
+    }
 }

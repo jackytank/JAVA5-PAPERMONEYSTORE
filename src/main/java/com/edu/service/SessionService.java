@@ -28,4 +28,9 @@ public class SessionService {
         session.removeAttribute(name);
         session.invalidate();
     }
+
+    public boolean isLoggedIn() {
+        return session.getAttribute("username") != null;
+    }
+
 }

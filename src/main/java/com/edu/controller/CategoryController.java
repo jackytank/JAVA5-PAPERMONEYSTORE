@@ -10,10 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.dao.CategoryDAO;
 import com.edu.dao.ProductDAO;
@@ -48,20 +50,40 @@ public class CategoryController {
     }
 
     @RequestMapping("/admin/category/delete/{id}")
-    public String delete(@PathVariable("id") String id) {
+    public ModelAndView delete(@PathVariable("id") String id, ModelMap modelMap) {
         dao.deleteById(id);
-        return "redirect:/admin/category";
+        modelMap.addAttribute("message", "Delete success!! Id: " + id);
+        return new ModelAndView("redirect:/admin/category", modelMap);
     }
 
     @PostMapping("/admin/category/update")
-    public String update(Category category) {
+    public ModelAndView update(@ModelAttribute("category") Category category, ModelMap modelMap) {
+        if (dao.existsCategoryById(category.getId())) {
+            modelMap.addAttribute("message", "CategoryId already existed!!");
+            return new ModelAndView("redirect:/admin/category", modelMap);
+        }
+        if (dao.existsCategoryByName(category.getName())) {
+            modelMap.addAttribute("message", "Category name already existed!!");
+            return new ModelAndView("redirect:/admin/category", modelMap);
+        }
         dao.save(category);
-        return "redirect:/admin/category/edit/" + category.getId();
+        modelMap.addAttribute("message", "Update success!!");
+        return new ModelAndView("redirect:/admin/category/edit/" + category.getId(), modelMap);
     }
 
     @PostMapping("/admin/category/create")
-    public String create(Category category) {
+    public ModelAndView create(@ModelAttribute("category") Category category, ModelMap modelMap) {
+        if (dao.existsCategoryById(category.getId())) {
+            modelMap.addAttribute("message", "CategoryId already existed!!");
+            return new ModelAndView("redirect:/admin/category", modelMap);
+        }
+        if (dao.existsCategoryByName(category.getName())) {
+            modelMap.addAttribute("message", "Category name already existed!!");
+            return new ModelAndView("redirect:/admin/category", modelMap);
+        }
+
         dao.save(category);
-        return "redirect:/admin/category";
+        modelMap.addAttribute("message", "Create success!! Category name: " + category.getName());
+        return new ModelAndView("redirect:/admin/category", modelMap);
     }
 }

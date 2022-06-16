@@ -10,8 +10,9 @@
                         <meta charset="UTF-8">
                         <meta http-equiv="X-UA-Compatible" content="IE=edge">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Admin - Category</title>
-
+                        <title>Admin - Report</title>
+                        <!-- title icon -->
+                        <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
                             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -31,15 +32,15 @@
                                         <tr>
                                             <th scope="col">Category</th>
                                             <th scope="col">Revenue</th>
-                                            <th scope="col">Sold</th>
+                                            <th scope="col">Sold Quantity</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="item" items="${revenues}" varStatus="loop">
+                                        <c:forEach var="item" items="${reports}" varStatus="loop">
                                             <tr>
-                                                <th scope="row">${item.id}</th>
-                                                <th>${item.name}</th>
-
+                                                <th scope="row">${item.categories.name}</th>
+                                                <th>${item.sum}</th>
+                                                <th>${item.count}</th>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
