@@ -42,7 +42,7 @@
 										<!--SIGNUP BUTTON TO ACTIVE SIGNUP MODAL-->
 										<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#SignupModal">Signup</a></li>
 										<!--FORGOT PASSWORD BUTTON TO ACTIVE FORGOT PASSWORD MODAL-->
-										<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ForgotPasswordModal">Forgot password</a>
+										<li><a class="dropdown-item" href="/forgotpwd" data-bs-toggle="modal" data-bs-target="#ForgotPasswordModal">Forgot password</a>
 											<!--CHANGE PASSWORD BUTTON TO ACTIVE CHANGE PASSWORD MODAL-->
 									</c:if>
 									<c:if test="${isLogin}">

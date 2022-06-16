@@ -28,82 +28,81 @@ import com.edu.dao.ProductDAO;
 @Controller
 public class HomeController {
 
-    @Autowired
-    ProductDAO productDAO;
+	@Autowired
+	ProductDAO productDAO;
 
-    @Autowired
-    MailerService mailer;
+	@Autowired
+	MailerService mailer;
 
-    @Autowired
-    SessionService session;
+	@Autowired
+	SessionService session;
 
-    //
-    @GetMapping("/")
-    public String paginate(@RequestParam Optional<Boolean> isLogin,
-            @RequestParam(required = false) String sessionUsername,
-            @RequestParam("page") Optional<Integer> page,
-            ModelMap model) {
-        Pageable pageable = PageRequest.of(page.orElse(0), 6);
-        Page<Product> pages = productDAO.findAll(pageable);
-        model.addAttribute("page", pages);
-        model.addAttribute("isLogin", isLogin.orElse(false));
-        model.addAttribute("sessionUsername", sessionUsername);
-        return "/user/index";
-    }
+	//
+	@GetMapping("/")
+	public String paginate(@RequestParam Optional<Boolean> isLogin,
+			@RequestParam(required = false) String sessionUsername, @RequestParam("page") Optional<Integer> page,
+			@RequestParam(value = "message", required = false) String message, ModelMap model) {
+		Pageable pageable = PageRequest.of(page.orElse(0), 6);
+		Page<Product> pages = productDAO.findAll(pageable);
+		model.addAttribute("page", pages);
+		model.addAttribute("isLogin", isLogin.orElse(false));
+		model.addAttribute("sessionUsername", sessionUsername);
+		return "/user/index";
+	}
 
-    @PostMapping("/contactus/send")
-    public String send(Model model, @RequestParam Optional<String> name, @RequestParam Optional<String> phone,
-            @RequestParam Optional<String> email, @RequestParam Optional<String> note) throws Exception {
-        // save contact input to session after website reload
-        String _name = name.orElse(session.get("contactName"));
-        String _phone = phone.orElse(session.get("contactPhone"));
-        String _email = email.orElse(session.get("contactEmail"));
-        String _note = note.orElse(session.get("contactNote"));
-        session.set("contactName", _name);
-        session.set("contactPhone", _phone);
-        session.set("contactEmail", _email);
-        session.set("contactNote", _note);
-        System.out.println(_phone);
-        // setting mail body,subject,to
-        MailInfo mail = new MailInfo();
-        mail.setTo("tritmps15506@fpt.edu.vn");
-        mail.setSubject("Contact customer");
-        mail.setBody("Name: " + _name + "\n Phone: " + _phone + "\n Email: " + _email + "\n Note: " + _note);
+	@PostMapping("/contactus/send")
+	public String send(Model model, @RequestParam Optional<String> name, @RequestParam Optional<String> phone,
+			@RequestParam Optional<String> email, @RequestParam Optional<String> note) throws Exception {
+		// save contact input to session after website reload
+		String _name = name.orElse(session.get("contactName"));
+		String _phone = phone.orElse(session.get("contactPhone"));
+		String _email = email.orElse(session.get("contactEmail"));
+		String _note = note.orElse(session.get("contactNote"));
+		session.set("contactName", _name);
+		session.set("contactPhone", _phone);
+		session.set("contactEmail", _email);
+		session.set("contactNote", _note);
+		System.out.println(_phone);
+		// setting mail body,subject,to
+		MailInfo mail = new MailInfo();
+		mail.setTo("tritmps15506@fpt.edu.vn");
+		mail.setSubject("Contact customer");
+		mail.setBody("Name: " + _name + "\n Phone: " + _phone + "\n Email: " + _email + "\n Note: " + _note);
 
-        if (_name.equals("")) {
-            model.addAttribute("invalidName", "Please enter your name");
-        } else if (!Check.ParseSDT(_phone)) {
-            model.addAttribute("invalidPhone", "Please enter the correct phone");
-        } else if (!Check.parseEmail(_email)) {
-            model.addAttribute("invalidEmail", "Please enter the correct email");
-        } else {
-            mailer.queue(mail);
-            model.addAttribute("message", "Submitted successfuly!");
-        }
-        return "/user/contact-us";
-    }
+		if (_name.equals("")) {
+			model.addAttribute("invalidName", "Please enter your name");
+		} else if (!Check.ParseSDT(_phone)) {
+			model.addAttribute("invalidPhone", "Please enter the correct phone");
+		} else if (!Check.parseEmail(_email)) {
+			model.addAttribute("invalidEmail", "Please enter the correct email");
+		} else {
+			mailer.queue(mail);
+			model.addAttribute("message", "Submitted successfuly!");
+		}
+		return "/user/contact-us";
+	}
 
-    @GetMapping("/aboutus")
-    public String aboutus() {
-        return "/user/about-us";
-    }
+	@GetMapping("/aboutus")
+	public String aboutus() {
+		return "/user/about-us";
+	}
 
-    @GetMapping("/contactus")
-    public String contactus() {
-        return "/user/contact-us";
-    }
+	@GetMapping("/contactus")
+	public String contactus() {
+		return "/user/contact-us";
+	}
 
-    // for admin
+	// for admin
 
-    @GetMapping("/admin/index")
-    public String getAdmin1(Model model, @RequestParam(required = false) Optional<String> sessionUsername) {
-        model.addAttribute("sessionUsername", sessionUsername.orElse(((Account) session.get("user")).getId()));
-        return "/admin/index";
-    }
+	@GetMapping("/admin/index")
+	public String getAdmin1(Model model, @RequestParam(required = false) Optional<String> sessionUsername) {
+		model.addAttribute("sessionUsername", sessionUsername.orElse(((Account) session.get("user")).getId()));
+		return "/admin/index";
+	}
 
-    @GetMapping("/admin")
-    public String getAdmin2(Model model, @RequestParam(required = false) Optional<String> sessionUsername) {
-        model.addAttribute("sessionUsername", sessionUsername.orElse(((Account) session.get("user")).getId()));
-        return "/admin/index";
-    }
+	@GetMapping("/admin")
+	public String getAdmin2(Model model, @RequestParam(required = false) Optional<String> sessionUsername) {
+		model.addAttribute("sessionUsername", sessionUsername.orElse(((Account) session.get("user")).getId()));
+		return "/admin/index";
+	}
 }
