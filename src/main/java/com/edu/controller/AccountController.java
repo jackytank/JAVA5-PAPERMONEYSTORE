@@ -34,6 +34,7 @@ import com.edu.model.AccountForm;
 import com.edu.service.CookieService;
 import com.edu.service.ParamService;
 import com.edu.service.SessionService;
+import com.edu.utils.CommonUtils;
 
 @Controller
 public class AccountController {
@@ -44,10 +45,13 @@ public class AccountController {
     SessionService session;
 
     @Autowired
-    ParamService paramService;
+    ParamService param;
 
     @Autowired
     CookieService cookie;
+
+    @Autowired
+    CommonUtils common;
 
     @PostMapping("/account/process_register")
     public ModelAndView processRegistration(@ModelAttribute("acc") AccountForm accountForm, ModelMap modelMap) {
@@ -162,7 +166,7 @@ public class AccountController {
     // for admin
 
     @GetMapping("/admin/account")
-    public String index(ModelMap model) {
+    public String index(@RequestParam(required = false) String message, ModelMap model) {
         model.addAttribute("account", new Account());
         List<Account> accounts = dao.findAll();
         model.addAttribute("accounts", accounts);
@@ -170,7 +174,7 @@ public class AccountController {
     }
 
     @RequestMapping("/admin/account/edit/{id}")
-    public String edit(@PathVariable("id") String id, ModelMap model) {
+    public String edit(@PathVariable("id") String id, @RequestParam(required = false) String message, ModelMap model) {
         Account account = dao.findById(id).get();
         model.addAttribute("account", account);
         List<Account> accounts = dao.findAll();
@@ -184,26 +188,70 @@ public class AccountController {
         return "redirect:/admin/account";
     }
 
+    @GetMapping("/admin/account/update")
+    public ModelAndView getupdate(@ModelAttribute("account") AccountForm form, ModelMap modelMap) {
+        return new ModelAndView("redirect:/admin/account/edit/" + form.getId());
+    }
+
     @PostMapping("/admin/account/update")
-    public String update(Account account, @RequestParam("image") MultipartFile image) {
+    public ModelAndView postupdate(ModelMap modelMap, @RequestParam("image") MultipartFile image,
+            @ModelAttribute("account") AccountForm form) throws IOException {
+
+        Account account = new Account();
+        BeanUtils.copyProperties(form, account);
+
+        // check if username is not existed then show error
+        if (!dao.existsAccountById(account.getId())) {
+            modelMap.addAttribute("message", "Username is not existed!!");
+            return new ModelAndView("redirect:/admin/account", modelMap);
+        }
+
+        // check if image name is null
+        if (!image.getOriginalFilename().equals("")) {
+            account.setImage(image.getOriginalFilename());
+        } else {
+            if (account.getImage() == null) {
+                account.setImage("default.jpg");
+            } else {
+                account.setImage(dao.getById(account.getId()).getImage());
+                common.saveFile(image, "user");
+            }
+        }
         dao.save(account);
-        return "redirect:/admin/account/edit/" + account.getId();
+        modelMap.addAttribute("message", "Update success!!");
+        return new ModelAndView("redirect:/admin/account/edit/" + form.getId(), modelMap);
+    }
+
+    @GetMapping("/admin/account/create")
+    public String getCreate() {
+        return "redirect:/admin/account";
     }
 
     @PostMapping("/admin/account/create")
-    public String create(AccountForm accountForm) throws IOException {
-        if (accountForm.getImage() != null) {
-            String filename = StringUtils.cleanPath(accountForm.getImage().getOriginalFilename());
-            accountForm.setImageUrl(filename);
+    public ModelAndView postCreate(ModelMap modelMap, @RequestParam("image") MultipartFile image,
+            @ModelAttribute("account") AccountForm form) throws IOException {
+        Account account = new Account();
+        BeanUtils.copyProperties(form, account);
+        // check if account already existed
+        if (dao.existsAccountById(account.getId())) {
+            modelMap.addAttribute("error", "Account:" + account.getId() + " already exists!!");
+            return new ModelAndView("redirect:/admin/account", modelMap);
+        }
+        // check if image name is null
+        if (!image.getOriginalFilename().equals("")) {
+            account.setImage(image.getOriginalFilename());
+        } else {
+            if (account.getImage() == null) {
+                account.setImage("default.jpg");
+            } else {
+                account.setImage(dao.getById(account.getId()).getImage());
+                common.saveFile(image, "user");
+            }
         }
 
-        // copy properties and set image url
-        Account account = new Account();
-        BeanUtils.copyProperties(accountForm, account);
-        account.setImage(accountForm.getImageUrl());
-
-        System.out.println(account.toString());
         dao.save(account);
-        return "redirect:/admin/account";
+
+        modelMap.addAttribute("message", "Create success!! Username: " + account.getId());
+        return new ModelAndView("redirect:/admin/account", modelMap);
     }
 }

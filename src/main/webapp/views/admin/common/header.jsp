@@ -54,12 +54,12 @@
                                                     Order
                                                 </a>
                                             </li>
-                                            <li class="nav-item">
+                                            <!-- <li class="nav-item">
                                                 <a href="/admin/report" class="nav-link ">
                                                     <i class="fa-solid fa-chart-bar bi d-block mx-auto mb-1"></i>
                                                     Report
                                                 </a>
-                                            </li>
+                                            </li> -->
                                             <li class="nav-item">
                                                 <a href="/admin/revenue" class="nav-link ">
                                                     <i class="fa-solid fa-dollar-sign bi d-block mx-auto mb-1"></i>
@@ -68,8 +68,10 @@
                                             </li>
                                         </ul>
                                         <form class="d-flex">
-                                            <span class="align-self-center text-nowrap me-2">Hi <span class="fw-bold">${sessionUsername}</span></span>
-                                            <a href="/account/logout" class="btn btn-danger">Logout</a>
+                                            <span class="align-self-center text-nowrap me-2">Hi <span class="fw-bold">
+                                                    <% String name=(String)session.getAttribute("username"); out.print(name); %>
+                                                </span></span>
+                                            <a href=" /account/logout" class="btn btn-danger">Logout</a>
                                         </form>
                                     </div>
                                 </div>

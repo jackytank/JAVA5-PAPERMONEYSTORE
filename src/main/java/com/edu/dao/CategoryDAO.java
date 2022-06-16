@@ -4,4 +4,6 @@ import com.edu.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryDAO extends JpaRepository<Category, String> {
+    // Derived Query - for checking if category exist by id
+    public boolean existsCategoryById(String id);
 }

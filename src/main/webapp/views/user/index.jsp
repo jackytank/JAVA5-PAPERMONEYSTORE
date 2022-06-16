@@ -34,7 +34,7 @@
 									<c:forEach var="item" items="${page.content}" varStatus="loop">
 										<div class="col">
 											<div class="card mb-3" style="width: 18rem">
-												<img src="/img/${item.image}" class="card-img-top" width="250" height="250" alt="..." />
+												<img src="/upload/product/${item.image}" class="card-img-top" width="250" height="250" alt="..." />
 												<div class="card-body">
 													<h5 class="card-title">${item.name}</h5>
 													<p class="card-text">Price: <span class="fw-bold text-success">${item.price} $</span></p>
@@ -63,7 +63,19 @@
 				</div>
 
 				<script>
-					if (("${param.message}" != "") || ("${message}" != "") || "${param.error}" != "") alert("Message: ${message}\nError: ${param.error}");
+					let message = ""
+					if ("${param.message}" != "") {
+						message += "Message: ${param.message}\n"
+					}
+					if ("${param.error}" != "") {
+						message += "Error: ${param.error}\n"
+					}
+					if ("${message}" != "") {
+						message += "Message: ${message}\n"
+					}
+					if (message !== "") {
+						alert(message);
+					}
 				</script>
 			</body>
 

@@ -32,7 +32,7 @@
                                 <div class="">
                                     <div class="row d-flex justify-content-center mb-5">
                                         <div class="col-sm-5 text-center">
-                                            <img class="img-thumbnail " width="350" src="/img/${product.image}" alt="">
+                                            <img class="img-thumbnail " width="350" src="/upload/product/${product.image}" alt="">
                                         </div>
                                         <div class="col-sm-7 d-flex align-items-center">
                                             <ul class="list-unstyled">
@@ -56,7 +56,7 @@
                                     <div class="col text-center d-flex justify-content-evenly">
                                         <c:forEach var="item" items="${relevantProducts.content}" varStatus="loop">
                                             <a href="/product/detail/${item.id}"><img class="img-thumbnail" width="125" height="125"
-                                                    src="/img/${item.image}" alt=""></a>
+                                                    src="/upload/product/${item.image}" alt=""></a>
                                         </c:forEach>
                                     </div>
                                 </div>

@@ -12,11 +12,18 @@
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Admin - Product</title>
 
+                        <!-- bootstrap css -->
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
                             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+                        <!-- bootstrap js -->
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous" defer></script>
+                        <!-- font awsome -->
                         <script src="https://kit.fontawesome.com/e136359f35.js" crossorigin="anonymous" defer></script>
+                        <!-- jquery -->
+                        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
+                        <!-- my js -->
+                        <script src="/js/script.js" defer></script>
                     </head>
 
                     <body>
@@ -45,15 +52,17 @@
                                                 <figure>
                                                     <c:choose>
                                                         <c:when test="${product.image != null}">
-                                                            <img src="/img/${product.image}" alt="" class="img-fluid img-thumbnail" width="120" height="120">
+                                                            <img src="/upload/product/${product.image}" id="imageResult" alt="" class="img-fluid img-thumbnail"
+                                                                width="120" height="120">
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <img src="/img/error-404.jpg" alt="" class="img-fluid img-thumbnail" width="120" height="120">
+                                                            <img src="/upload/product/error-404.jpg" id="imageResult" alt="" class="img-fluid img-thumbnail"
+                                                                width="120" height="120">
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </figure>
-                                                <form:input path="image" class="form-control" type="file" accept="image/png, image/jpeg"
-                                                    value="${product.image}" />
+                                                <form:input id="upload" path="image" class="form-control" type="file" onchange="readURL(this);"
+                                                    accept="image/png, image/jpeg" value="${product.image}" />
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="id">Id: </form:label>
@@ -75,11 +84,11 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="createdate">Create date:</form:label>
-                                                <form:input path="createdate" class="form-control" type="date" readonly="true"/>
+                                                <form:input path="createdate" class="form-control" type="date" readonly="true" />
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="categoryid">Category:</form:label>
-                                                <form:input path="categoryid" class="form-control" type="text" />
+                                                <form:input path="categoryid.id" class="form-control" type="text" />
                                                 <span class="text-danger">${errorCategoryId}</span>
                                             </div>
                                             <button class="btn btn-success" formaction="/admin/product/create" formmethod="post">CREATE</button>
@@ -107,7 +116,8 @@
                                                 <c:forEach var="item" items="${products}" varStatus="loop">
                                                     <tr>
                                                         <th scope="row">
-                                                            <img src="/img/${item.image}" alt="" class="img-fluid img-thumbnail" width="80" height="80">
+                                                            <img src="/upload/product/${item.image}" alt="" class="img-fluid img-thumbnail" width="80"
+                                                                height="80">
                                                         </th>
                                                         <th>${item.id}</th>
                                                         <th>${item.name}</th>
@@ -126,45 +136,28 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                            <script>
-                                function readURL(input) {
-                                    if (input.files && input.files[0]) {
-                                        var reader = new FileReader();
-
-                                        reader.onload = function (e) {
-                                            $('#imageResult').attr('src', e.target.result);
-                                        };
-                                        reader.readAsDataURL(input.files[0]);
-                                    }
-                                }
-
-                                $(function () {
-                                    $('#upload').on('change', function () {
-                                        readURL(input);
-                                    });
-                                });
-                                var input = document.getElementById('upload');
-                                var infoArea = document.getElementById('upload-label');
-
-                                input.addEventListener('change', showFileName);
-                                function showFileName(event) {
-                                    var input = event.srcElement;
-                                    var fileName = input.files[0].name;
-                                    infoArea.textContent = 'File name: ' + fileName;
-                                }
-                            </script>
-
-                            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
                         </main>
 
 
-                        <!-- header -->
+                        <!-- footer -->
                         <jsp:include page="common/footer.jsp"></jsp:include>
 
 
-
+                        <script>
+                            let message = ""
+                            if ("${param.message}" != "") {
+                                message += "Message: ${param.message}\n"
+                            }
+                            if ("${param.error}" != "") {
+                                message += "Error: ${param.error}\n"
+                            }
+                            if ("${message}" != "") {
+                                message += "Message: ${message}\n"
+                            }
+                            if (message !== "") {
+                                alert(message);
+                            }
+                        </script>
                     </body>
 
                     </html>

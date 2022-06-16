@@ -20,7 +20,9 @@
 					</ul>
 					<div class="col-md-3 text-end mb-2">
 						<c:if test="${sessionUsername != null}">
-							<span class="align-self-center text-nowrap me-2">Hi <span class="fw-bold">${sessionUsername}</span></span>
+							<span class="align-self-center text-nowrap me-2">Hi <span class="fw-bold">
+									<% String name=(String)session.getAttribute("username"); out.print(name); %>
+								</span></span>
 						</c:if>
 						<div class="btn-group">
 							<!--CART BUTTON -->

@@ -11,12 +11,18 @@
                         <meta http-equiv="X-UA-Compatible" content="IE=edge">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Admin - Account</title>
-
+                        <!-- bootstrap css -->
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
                             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+                        <!-- bootstrap js -->
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous" defer></script>
+                        <!-- font awsome -->
                         <script src="https://kit.fontawesome.com/e136359f35.js" crossorigin="anonymous" defer></script>
+                        <!-- jquery -->
+                        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
+                        <!-- my js -->
+                        <script src="/js/script.js" defer></script>
                     </head>
 
                     <body>
@@ -45,15 +51,17 @@
                                                 <figure>
                                                     <c:choose>
                                                         <c:when test="${account.image != null}">
-                                                            <img src="/img/${account.image}" alt="" class="img-fluid img-thumbnail" width="120" height="120">
+                                                            <img src="/upload/user/${account.image}" id="imageResult" alt="" class="img-fluid img-thumbnail"
+                                                                width="120" height="120">
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <img src="/img/error-404.jpg" alt="" class="img-fluid img-thumbnail" width="120" height="120">
+                                                            <img src="/upload/user/error-404.jpg" id="imageResult" alt="" class="img-fluid img-thumbnail"
+                                                                width="120" height="120">
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </figure>
-                                                <form:input path="image" class="form-control" type="file" accept="image/png, image/jpeg"
-                                                    value="${account.image}" />
+                                                <form:input id="upload" path="image" class="form-control" type="file" onchange="readURL(this);"
+                                                    accept="image/png, image/jpeg" value="${account.image}" />
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="id">Username: </form:label>
@@ -75,13 +83,15 @@
                                                 <form:label path="address">Address: </form:label>
                                                 <form:input path="address" class="form-control" type="text" />
                                             </div>
-                                            <div>
-                                                <form:radiobutton id="isActivated" path="activated" value="0" />
-                                                <form:radiobutton id="isActivated" path="activated" value="1" />
+                                            <div class="form-group mb-3">
+                                                <form:label path="activated">Is Activated: </form:label>
+                                                <form:radiobutton id="isActivated" path="activated" value="1" /> True
+                                                <form:radiobutton id="isActivated" path="activated" value="0" /> False
                                             </div>
-                                            <div>
-                                                <form:radiobutton id="isAdmin" path="admin" value="0" />
-                                                <form:radiobutton id="isAdmin" path="admin" value="1" />
+                                            <div class="form-group mb-3">
+                                                <form:label path="admin">Is Admin: </form:label>
+                                                <form:radiobutton id="isAdmin" path="admin" value="1" /> True
+                                                <form:radiobutton id="isAdmin" path="admin" value="0" /> False
                                             </div>
                                             <button class="btn btn-success" formaction="/admin/account/create" formmethod="post">CREATE</button>
                                             <button class="btn btn-secondary" formaction="/admin/account/update" formmethod="post">UPDATE</button>
@@ -109,7 +119,7 @@
                                                 <c:forEach var="item" items="${accounts}" varStatus="loop">
                                                     <tr>
                                                         <th scope="row">
-                                                            <img src="/img/${item.image}" alt="" class="img-fluid img-thumbnail" width="80" height="80">
+                                                            <img src="/upload/user/${item.image}" alt="" class="img-fluid img-thumbnail" width="80" height="80">
                                                         </th>
                                                         <th>${item.id}</th>
                                                         <th>${item.email}</th>
@@ -131,12 +141,27 @@
                             </div>
                         </main>
 
-
+                        <script>
+                            let message = ""
+                            if ("${param.message}" != "") {
+                                message += "Message: ${param.message}\n"
+                                // alert("Message: ${param.message}");
+                            }
+                            if ("${param.error}" != "") {
+                                message += "Error: ${param.error}\n"
+                                // alert("${param.error}");
+                            }
+                            if ("${message}" != "") {
+                                message += "Message: ${message}\n"
+                                // alert("Message: ${message}");
+                            }
+                            if (message !== "") {
+                                alert(message);
+                            }
+                            
+                        </script>
                         <!-- header -->
                         <jsp:include page="common/footer.jsp"></jsp:include>
-
-
-
                     </body>
 
                     </html>
