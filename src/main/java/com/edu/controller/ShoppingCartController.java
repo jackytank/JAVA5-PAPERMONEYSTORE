@@ -68,12 +68,14 @@ public class ShoppingCartController {
             return new ModelAndView("redirect:/account/login", model);
         }
         cartService.add(id);
+        sessionService.set("cartQuantity", cartService.getCount());
         return new ModelAndView("redirect:/");
     }
 
     @GetMapping("/remove/{id}")
     public String remove(@PathVariable("id") Integer id) {
         cartService.remove(id);
+        sessionService.set("cartQuantity", cartService.getCount());
         return "redirect:/cart/view";
     }
 
@@ -91,6 +93,7 @@ public class ShoppingCartController {
     @RequestMapping("/clear")
     public String reset() {
         cartService.clear();
+        sessionService.set("cartQuantity", cartService.getCount());
         return "redirect:/cart/view";
     }
 }

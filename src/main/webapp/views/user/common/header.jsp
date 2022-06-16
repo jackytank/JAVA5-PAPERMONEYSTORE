@@ -28,6 +28,7 @@
 							<!--CART BUTTON -->
 							<a href="/cart/view" class="btn btn-outline-secondary px-3 mx-2">
 								<i class="fa-solid fa-cart-shopping"></i>
+								<span class="badge bg-success text-white ms-1 rounded-pill" id="cartQuantity">${cartQuantity}</span>
 							</a>
 						</div>
 						<div class="btn-group">
