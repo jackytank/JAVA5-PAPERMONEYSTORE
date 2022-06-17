@@ -107,6 +107,9 @@ public class AccountController {
                     }
                     model.addAttribute("sessionUsername", user.getId());
                     model.addAttribute("isLogin", true);
+                    if (user.isAdmin()) {
+                        return new ModelAndView("redirect:/admin/index", model);
+                    }
                     return new ModelAndView("redirect:/", model);
 
                 }
