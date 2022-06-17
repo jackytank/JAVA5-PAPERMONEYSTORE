@@ -55,7 +55,8 @@
                                                             <input type="hidden" name="id" value="${item.id}">
                                                             <td>${item.id}</td>
                                                             <td>
-                                                                <img src="/upload/product/${item.image}" alt="" class="img-fluid img-thumbnail" width="80" height="80">
+                                                                <img src="/upload/product/${item.image}" alt="" class="img-fluid img-thumbnail" width="80"
+                                                                    height="80">
                                                             </td>
                                                             <td>${item.name}</td>
                                                             <td>${item.price} $</td>
@@ -81,8 +82,8 @@
                                         <div class="border-top-0 d-flex justify-content-between">
                                             <a href="/" class="btn btn-secondary">&larr; Go back</a>
                                             <a href="/cart/clear" class="btn btn-danger">Clear cart</a>
-                                            <a href="/cart/checkout/<% out.print((String)session.getAttribute(" username")); %></a>" class="btn btn-success"
-                                            onclick="confirmCheckout()">Checkout</a>
+                                            <a href='/cart/checkout/<% out.print((String)session.getAttribute("username")); %>' class="btn btn-success"
+                                                onclick="confirmCheckout()">Checkout</a>
                                         </div>
                                     </div>
                                 </div>

@@ -54,4 +54,14 @@ public class Order {
         this.username = username;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                " id='" + getId() + "'" +
+                ", address='" + getAddress() + "'" +
+                ", createdate='" + getCreatedate() + "'" +
+                ", username='" + getUsername() + "'" +
+                "}";
+    }
+
 }

@@ -13,11 +13,20 @@
                         <title>Admin - Category</title>
                         <!-- title icon -->
                         <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+                        <!-- bootstrap css -->
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
                             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+                        <!-- bootstrap js -->
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous" defer></script>
+                        <!-- font awsome -->
                         <script src="https://kit.fontawesome.com/e136359f35.js" crossorigin="anonymous" defer></script>
+                        <!-- jquery -->
+                        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
+                        <!-- my js -->
+                        <script src="/js/script.js" defer></script>
+                        <!-- AngularJS -->
+                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
                     </head>
 
                     <body>
@@ -25,7 +34,7 @@
                         <jsp:include page="common/header.jsp"></jsp:include>
 
 
-                        <main class="m-5" style="min-height: 100vh;">
+                        <main class="m-5" style="min-height: 100vh;" ng-app="myapp" ng-controller="myctl">
                             <div class="container w-50">
                                 <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
@@ -40,17 +49,21 @@
                                 <div class="tab-content" id="myTabContent">
                                     <!-- edit tab -->
                                     <div class="tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="edit-tab">
-                                        <form:form action="" modelAttribute="category">
+                                        <form:form action="" modelAttribute="category" name="form">
                                             <div class="form-group mb-3">
                                                 <form:label path="id">Category ID: </form:label>
-                                                <form:input path="id" class="form-control" type="text" required="true" />
+                                                <form:input ng-model="id" path="id" class="form-control" type="text" required="true" />
+                                                <label ng-show="form.id.$invalid" class="text-danger">Please enter id </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="name">Category Name</form:label>
-                                                <form:input path="name" class="form-control" type="text" required="true" />
+                                                <form:input ng-model="name" path="name" class="form-control" type="text" required="true" />
+                                                <label ng-show="form.name.$invalid" class="text-danger">Please enter name </label>
                                             </div>
-                                            <button class="btn btn-success" formaction="/admin/category/create" formmethod="post">CREATE</button>
-                                            <button class="btn btn-secondary" formaction="/admin/category/update" formmethod="post">UPDATE</button>
+                                            <button class="btn btn-success" formaction="/admin/category/create" formmethod="post"
+                                                ng-disabled="form.$invalid">CREATE</button>
+                                            <button class="btn btn-secondary" formaction="/admin/category/update" formmethod="post"
+                                                ng-disabled="form.$invalid">UPDATE</button>
                                             <button class="btn btn-danger" formaction="/admin/category/delete/${category.id}" formmethod="get">DELETE</button>
                                             <button class="btn btn-info" formaction="/admin/category/" formmethod="get">RESET</button>
                                         </form:form>
@@ -102,6 +115,10 @@
                             if (message !== "") {
                                 alert(message);
                             }
+
+                            var app = angular.module("myapp", []);
+                            app.controller("myctl", function ($scope) {
+                            })
                         </script>
 
                     </body>

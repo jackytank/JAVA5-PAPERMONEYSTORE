@@ -64,4 +64,15 @@ public class OrderDetail {
         this.productid = productid;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", price='" + getPrice() + "'" +
+            ", quantity='" + getQuantity() + "'" +
+            ", orderid='" + getOrderid() + "'" +
+            ", productid='" + getProductid() + "'" +
+            "}";
+    }
+
 }
