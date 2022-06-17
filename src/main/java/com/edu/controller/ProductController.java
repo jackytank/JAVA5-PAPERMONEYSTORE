@@ -1,4 +1,4 @@
-package com.edu.controller;
+	package com.edu.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -38,145 +38,162 @@ import com.edu.utils.CommonUtils;
 
 @Controller
 public class ProductController {
-    @Autowired
-    ProductDAO productDAO;
+	@Autowired
+	ProductDAO productDAO;
 
-    @Autowired
-    CategoryDAO categoryDAO;
+	@Autowired
+	CategoryDAO categoryDAO;
 
-    @Autowired
-    ParamService paramService;
+	@Autowired
+	ParamService paramService;
 
-    @Autowired
-    SessionService sessionService;
+	@Autowired
+	SessionService sessionService;
 
-    @Autowired
-    CommonUtils common;
+	@Autowired
+	CommonUtils common;
 
-    @RequestMapping("/product/page")
-    public String paginate(ModelMap model, @RequestParam("page") Optional<Integer> page) {
-        Pageable pageable = PageRequest.of(page.orElse(0), 6);
-        Page<Product> pages = productDAO.findAll(pageable);
-        model.addAttribute("page", pages);
-        return "user/index";
-    }
+	@RequestMapping("/product/page")
+	public String paginate(ModelMap model, @RequestParam("page") Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.orElse(0), 6);
+		Page<Product> pages = productDAO.findAll(pageable);
+		model.addAttribute("page", pages);
+		return "user/index";
+	}
 
-    @GetMapping("/product/detail/{id}")
-    public String detail(@PathVariable("id") int id, ModelMap model) {
-        Product product = productDAO.findById(id).get();
-        // Gioi han limit cac product lien quan la 5
-        Pageable limit = PageRequest.of(0, 5);
-        Page<Product> relevantProducts = productDAO.findAll(limit);
-        model.addAttribute("product", product);
-        model.addAttribute("relevantProducts", relevantProducts);
-        return "user/detail";
-    }
+	@GetMapping("/product/detail/{id}")
+	public String detail(@PathVariable("id") int id, ModelMap model) {
+		Product product = productDAO.findById(id).get();
+		// Gioi han limit cac product lien quan la 5
+		Pageable limit = PageRequest.of(0, 5);
+		Page<Product> relevantProducts = productDAO.findAll(limit);
+		model.addAttribute("product", product);
+		model.addAttribute("relevantProducts", relevantProducts);
+		return "user/detail";
+	}
 
-    @RequestMapping("/product/search")
-    public String searchAndPage1(ModelMap model, @RequestParam("keywords") Optional<String> kw,
-            @RequestParam("page") Optional<Integer> page) {
-        String kwords = kw.orElse(sessionService.get("keywords"));
-        sessionService.set("keywords", kwords);
-        Pageable pageable = PageRequest.of(page.orElse(0), 5);
-        Page<Product> pages;
+	@RequestMapping("/product/search")
+	public String searchAndPage1(ModelMap model, @RequestParam("keywords") Optional<String> kw,
+			@RequestParam("page") Optional<Integer> page) {
+		String kwords = kw.orElse(sessionService.get("keywords"));
+		sessionService.set("keywords", kwords);
+		Pageable pageable = PageRequest.of(page.orElse(0), 5);
+		Page<Product> pages;
 
-        try {
-            Double dPrice = Double.parseDouble(kwords);
-            pages = productDAO.findAllByPriceIs(dPrice, pageable);
-        } catch (Exception e2) {
-            pages = productDAO.findAllByNameLike("%" + kwords + "%", pageable);
-        }
+		try {
+			Double dPrice = Double.parseDouble(kwords);
+			pages = productDAO.findAllByPriceIs(dPrice, pageable);
+		} catch (Exception e2) {
+			pages = productDAO.findAllByNameLike("%" + kwords + "%", pageable);
+		}
 
-        model.addAttribute("page", pages);
-        return "user/index";
-    }
+		model.addAttribute("page", pages);
+		return "user/index";
+	}
 
-    // for admin
+	// for admin
 
-    @GetMapping("/admin/product")
-    public String index(@RequestParam(required = false) String message, ModelMap model) {
-        model.addAttribute("product", new Product());
-        List<Product> products = productDAO.findAll();
-        model.addAttribute("products", products);
-        return "admin/product";
-    }
+	@GetMapping("/admin/product")
+	public String index(@RequestParam(required = false) String message, ModelMap model) {
+		model.addAttribute("product", new Product());
+		List<Product> products = productDAO.findAll();
+		model.addAttribute("products", products);
+		return "admin/product";
+	}
 
-    @RequestMapping("/admin/product/edit/{id}")
-    public String edit(@PathVariable("id") Integer id, ModelMap model) {
-        Product product = productDAO.findById(id).get();
-        model.addAttribute("product", product);
-        List<Product> products = productDAO.findAll();
-        model.addAttribute("products", products);
-        return "admin/product";
-    }
+	@RequestMapping("/admin/product/edit/{id}")
+	public String edit(@PathVariable("id") Integer id, ModelMap model) {
+		Product product = productDAO.findById(id).get();
+		model.addAttribute("product", product);
+		List<Product> products = productDAO.findAll();
+		model.addAttribute("products", products);
+		return "admin/product";
+	}
 
-    @RequestMapping("/admin/product/delete/{id}")
-    public String delete(@PathVariable("id") Integer id) {
-        productDAO.deleteById(id);
-        return "redirect:/admin/product";
-    }
+	@RequestMapping("/admin/product/delete/{id}")
+	public String delete(@PathVariable("id") Integer id) {
+		productDAO.deleteById(id);
+		return "redirect:/admin/product";
+	}
 
-    @PostMapping("/admin/product/update")
-    public ModelAndView update(ModelMap modelMap, @RequestParam("image") MultipartFile image,
-            @ModelAttribute("product") ProductForm form) {
+	@PostMapping("/admin/product/update")
+	public ModelAndView update(ModelMap modelMap, @RequestParam("image") MultipartFile image,
+			@ModelAttribute("product") ProductForm form) {
 
-        // copy properties and set image url, create date
-        Product product = new Product();
-        BeanUtils.copyProperties(form, product);
-        product.setCreatedate(productDAO.findById(product.getId()).get().getCreatedate());
-        if (!image.getOriginalFilename().equals("")) {
-            product.setImage(image.getOriginalFilename());
-        } else {
-            if (product.getImage() == null) {
-                product.setImage("default.jpg");
-            } else {
-                product.setImage(productDAO.getById(product.getId()).getImage());
-            }
-        }
-        // check if category id not existed then show error message
-        if (!categoryDAO.existsCategoryById(form.getCategoryid().getId())) {
-            modelMap.addAttribute("message", "CategoryId not exist!!");
-            return new ModelAndView("redirect:/admin/product", modelMap);
-        }
-        productDAO.save(product);
-        common.saveFile(image, "product");
-        modelMap.addAttribute("message", "Update success!! Product name: " + product.getName());
-        return new ModelAndView("redirect:/admin/product", modelMap);
-    }
+		// copy properties and set image url, create date
+		Product product = new Product();
+		BeanUtils.copyProperties(form, product);
+		product.setCreatedate(productDAO.findById(product.getId()).get().getCreatedate());
+		if (!image.getOriginalFilename().equals("")) {
+			product.setImage(image.getOriginalFilename());
+		} else {
+			if (product.getImage() == null) {
+				product.setImage("default.jpg");
+			} else {
+				product.setImage(productDAO.getById(product.getId()).getImage());
+			}
+		}
+		// check if category id not existed then show error message
+		if (!categoryDAO.existsCategoryById(form.getCategoryid().getId())) {
+			modelMap.addAttribute("message", "CategoryId not exist!!");
+			return new ModelAndView("redirect:/admin/product", modelMap);
+		}
+		productDAO.save(product);
+		common.saveFile(image, "product");
+		modelMap.addAttribute("message", "Update success!! Product name: " + product.getName());
+		return new ModelAndView("redirect:/admin/product", modelMap);
+	}
 
-    @GetMapping("/admin/product/create")
-    public String getCreate() {
-        return "redirect:/admin/product";
-    }
+	@GetMapping("/admin/product/create")
+	public String getCreate() {
+		return "redirect:/admin/product";
+	}
 
-    @PostMapping("/admin/product/create")
-    public ModelAndView create(ModelMap modelMap, @RequestParam("image") MultipartFile image,
-            @ModelAttribute("product") ProductForm form) throws IOException {
+	@PostMapping("/admin/product/create")
+	public ModelAndView create(ModelMap modelMap, @RequestParam("image") MultipartFile image,
+			@ModelAttribute("product") ProductForm form) throws IOException {
+		String error = "";
+		// copy properties and set image url, create date
+		Product product = new Product();
+		BeanUtils.copyProperties(form, product);
+		product.setCreatedate(LocalDate.now());
+		if (!image.getOriginalFilename().equals("")) {
+			product.setImage(image.getOriginalFilename());
+		} else {
+			if (product.getImage() == null) {
+				product.setImage("default.jpg");
+			} else {
+				product.setImage(productDAO.getById(product.getId()).getImage());
+			}
+		}
 
-        // copy properties and set image url, create date
-        Product product = new Product();
-        BeanUtils.copyProperties(form, product);
-        product.setCreatedate(LocalDate.now());
-        if (!image.getOriginalFilename().equals("")) {
-            product.setImage(image.getOriginalFilename());
-        } else {
-            if (product.getImage() == null) {
-                product.setImage("default.jpg");
-            } else {
-                product.setImage(productDAO.getById(product.getId()).getImage());
-            }
-        }
+		// check if category id not existed then show error message
+		if (!categoryDAO.existsCategoryById(product.getCategoryid().getId())) {
+			modelMap.addAttribute("errorCategoryId","CategoryId not exist!!");
+			return new ModelAndView("redirect:/admin/product", modelMap);
+		
+		}
+//		if (product.getName().equals("") || product.getName().length() > 5) {
+//			
+//			modelMap.addAttribute("errorname","The name must not be vacated and must be larger than 5 characters !!");
+//			return new ModelAndView("redirect:/admin/product", modelMap);
+//	
+//		}
+//		if (product.getPrice() == null || product.getPrice() < 0) {
+//			modelMap.addAttribute("errorprice","The price must not be blank and must not be a negative number !!");
+//			return new ModelAndView("redirect:/admin/product", modelMap);
+//		}
+//		
+//		if(error!="") {
+//			modelMap.addAttribute("message", error);
+//			return new ModelAndView("redirect:/admin/product", modelMap);
+//		}
+		System.out.println(form.toString());
+		System.out.println(product.toString());
+		productDAO.save(product);
+		common.saveFile(image, "product");
+		modelMap.addAttribute("message", "Create success!! Product name: " + product.getName());
+		return new ModelAndView("redirect:/admin/product", modelMap);
 
-        // check if category id not existed then show error message
-        if (!categoryDAO.existsCategoryById(product.getCategoryid().getId())) {
-            modelMap.addAttribute("message", "CategoryId not exist!!");
-            return new ModelAndView("redirect:/admin/product", modelMap);
-        }
-        System.out.println(form.toString());
-        System.out.println(product.toString());
-        productDAO.save(product);
-        common.saveFile(image, "product");
-        modelMap.addAttribute("message", "Create success!! Product name: " + product.getName());
-        return new ModelAndView("redirect:/admin/product", modelMap);
-    }
+	}
 }

@@ -24,6 +24,7 @@
                         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
                         <!-- my js -->
                         <script src="/js/script.js" defer></script>
+                        <script src="/js/angular.min.js"></script>
                     </head>
 
                     <body>
@@ -31,8 +32,8 @@
                         <jsp:include page="common/header.jsp"></jsp:include>
 
 
-                        <main class="m-5" style="min-height: 100vh;">
-                            <div class="container w-75">
+                        <main class="m-5" style="min-height: 100vh;" ng-app="myApp">
+                            <div class="container w-75" ng-controller="myCtrl">
                                 <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#edit" type="button" role="tab"
@@ -46,7 +47,7 @@
                                 <div class="tab-content" id="myTabContent">
                                     <!-- edit tab -->
                                     <div class="tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="edit-tab">
-                                        <form:form action="" modelAttribute="product" enctype="multipart/form-data">
+                                        <form:form action="" modelAttribute="product" enctype="multipart/form-data" name="frmValidate">
                                             <div class="form-group mb-3">
                                                 <form:label path="image">Image: </form:label>
                                                 <figure>
@@ -71,11 +72,14 @@
 
                                             <div class="form-group mb-3">
                                                 <form:label path="name">Name</form:label>
-                                                <form:input path="name" class="form-control" type="text" />
+                                                <form:input path="name" required="true" ng-model="name"  class="form-control" type="text" />
+                                                <label ng-show="frmValidate.name.$invalid" class="text-danger">Please enter Name and must be greater than 5 characters !!</label>
+                                               
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="price">Price: </form:label>
-                                                <form:input path="price" class="form-control" type="number" />
+                                                <form:input path="price" required="true" min="1" ng-model="price" class="form-control" type="number" />
+                                                 <label ng-show="frmValidate.price.$invalid" class="text-danger">Please enter price and must not be a negative number !!</label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="available">Available: </form:label>
@@ -88,10 +92,11 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="categoryid">Category:</form:label>
-                                                <form:input path="categoryid.id" class="form-control" type="text" />
-                                                <span class="text-danger">${errorCategoryId}</span>
+                                                <form:input path="categoryid" required="true" ng-model="categoryid" class="form-control" type="text" />
+                                               	<label ng-show="frmValidate.categoryid.$invalid" class="text-danger">Please enter category</label>
                                             </div>
                                             <button class="btn btn-success" formaction="/admin/product/create" formmethod="post">CREATE</button>
+                                             <label ng-show="frmValidate.$valid" class="alert alert-success">Create Success</label>
                                             <button class="btn btn-secondary" formaction="/admin/product/update" formmethod="post">UPDATE</button>
                                             <button class="btn btn-danger" formaction="/admin/product/delete/${product.id}" formmethod="get">DELETE</button>
                                             <button class="btn btn-info" formaction="/admin/product/" formmethod="get">RESET</button>
@@ -158,6 +163,15 @@
                                 alert(message);
                             }
                         </script>
+                        <script>
+	                        var app = angular.module("myApp",[]);
+	                        app.controller("myCtrl",function($scope){
+	                        	
+	                        });
+                        </script>
+                         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    					<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    					<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
                     </body>
 
                     </html>
