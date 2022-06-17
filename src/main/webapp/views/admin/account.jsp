@@ -23,6 +23,8 @@
                         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
                         <!-- my js -->
                         <script src="/js/script.js" defer></script>
+                        <!-- AngularJS -->
+                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
                     </head>
 
                     <body>
@@ -30,7 +32,7 @@
                         <jsp:include page="common/header.jsp"></jsp:include>
 
 
-                        <main class="m-5" style="min-height: 100vh;">
+                        <main class="m-5" style="min-height: 100vh;" ng-app="myapp" ng-controller="myctl">
                             <div class="container w-75">
                                 <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
@@ -45,7 +47,7 @@
                                 <div class="tab-content" id="myTabContent">
                                     <!-- edit tab -->
                                     <div class="tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="edit-tab">
-                                        <form:form action="" modelAttribute="account" enctype="multipart/form-data">
+                                        <form:form action="" modelAttribute="account" enctype="multipart/form-data" name="form" >
                                             <div class="form-group mb-3">
                                                 <form:label path="image">Image: </form:label>
                                                 <figure>
@@ -63,25 +65,30 @@
                                                 <form:input id="upload" path="image" class="form-control" type="file" onchange="readURL(this);"
                                                     accept="image/png, image/jpeg" value="${account.image}" />
                                             </div>
-                                            <div class="form-group mb-3">
+                                            <div  class="form-group mb-3">
                                                 <form:label path="id">Username: </form:label>
-                                                <form:input path="id" class="form-control" type="text" />
+                                                <form:input ng-model="userName" path="id" class="form-control" type="text"   required="true" />
+                                                <label ng-show="form.id.$invalid">Please enter UserName </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="email">Email</form:label>
-                                                <form:input path="email" class="form-control" type="text" />
+                                                <form:input ng-model="email" path="email" class="form-control" type="text" required="true" />
+                                                <label ng-show="form.email.$invalid">Please enter Email </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="password">Password</form:label>
-                                                <form:input path="password" class="form-control" type="text" />
+                                                <form:input ng-model="password" path="password" class="form-control" type="text"  minlength="5" maxlength="30"  required="true"/>
+                                                <label ng-show="form.password.$invalid">Please enter Password between 5 and 30 characters </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="phone">Phone: </form:label>
-                                                <form:input path="phone" class="form-control" type="tel" />
+                                                <form:input ng-model="phone" path="phone" class="form-control" type="tel" required="true"/>
+                                                <label ng-show="form.phone.$invalid">Please enter Phone </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="address">Address: </form:label>
-                                                <form:input path="address" class="form-control" type="text" />
+                                                <form:input ng-model="address" path="address" class="form-control" type="text" required="true"/>
+                                                <label ng-show="form.address.$invalid">Please enter Address </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="activated">Is Activated: </form:label>
@@ -158,7 +165,40 @@
                             if (message !== "") {
                                 alert(message);
                             }
-                            
+                            var app = angular.module("myapp", []);
+                            app.controller("myctl", function ($scope) {
+
+                            })
+
+                            // function validateForm() {
+                            //     var name = document.form.userName.value ;
+                            //     var password = document.form.password.value ;
+                            //     var phone = document.form.phone.value ;
+                            //     var email = document.form.email.value ;
+                            //     if (name == null || name == ""){
+                            //         document.getElementsByName("erName").innerHTML = "<label >Please enter Username</label>";
+                            //     }else {
+                            //         document.getElementsByName("erName").innerHTML = "<label ></label>";
+                            //     }
+                            //     if (password == null || password == "" || password<5 || password >30){
+                            //         document.getElementsByName("erPassword").innerHTML = "<label >Please enter Password between 5 and 30 characters</label>";
+                            //     }else {
+                            //         document.getElementsByName("erPassword").innerHTML = "<label ></label>";
+                            //     }
+                            //     if (email == null || email == "" ){
+                            //         document.getElementsByName("erEmail").innerHTML = "<label >Please enter Email <label>";
+                            //     }else {
+                            //         document.getElementsByName("erEmail").innerHTML = "<label ></label>";
+                            //     }
+                            //     if (phone == null || phone == "" ){
+                            //         document.getElementsByName("erPhone").innerHTML = "<label >Please enter Phone <label>";
+                            //     }else {
+                            //         document.getElementsByName("erPhone").innerHTML = "<label ></label>";
+                            //     }
+                            //
+                            //
+                            // }
+
                         </script>
                         <!-- header -->
                         <jsp:include page="common/footer.jsp"></jsp:include>

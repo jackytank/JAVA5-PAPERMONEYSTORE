@@ -16,6 +16,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="JAVA5-ASSM" />
+          <factory-entry name="entityManagerFactory" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
@@ -52,7 +53,6 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.6.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-json:2.6.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.1" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.16" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.16" level="project" />
@@ -127,19 +127,28 @@
     <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.58" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-jsp:3.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-servlet:3.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-core:3.0.8" level="project" />
+    <orderEntry type="library" name="Maven: commons-digester:commons-digester:2.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-request-servlet:1.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-template:3.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-api:3.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-autotag-core-runtime:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-request-jsp:1.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-request-api:1.0.7" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.6.2" level="project" />
     <orderEntry type="library" name="Maven: com.sendgrid:sendgrid-java:4.9.2" level="project" />
     <orderEntry type="library" name="Maven: com.sendgrid:java-http-client:4.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.15" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.1" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.70" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:7.6.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" name="Maven: com.beust:jcommander:1.82" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.webjars:jquery:3.6.0" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-java:4.2.1" level="project" />
@@ -173,7 +182,6 @@
     <orderEntry type="library" name="Maven: com.github.docker-java:docker-java:3.2.13" level="project" />
     <orderEntry type="library" name="Maven: com.github.docker-java:docker-java-core:3.2.13" level="project" />
     <orderEntry type="library" name="Maven: com.github.docker-java:docker-java-api:3.2.13" level="project" />
-    <orderEntry type="library" name="Maven: commons-io:commons-io:2.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.21" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.64" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.36" level="project" />
@@ -185,7 +193,20 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents.client5:httpclient5:5.1.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents.core5:httpcore5:5.1.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents.core5:httpcore5-h2:5.1.3" level="project" />
-    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.twilio.sdk:twilio:8.31.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.7" level="project" />
+    <orderEntry type="library" name="Maven: io.jsonwebtoken:jjwt-api:0.11.2" level="project" />
+    <orderEntry type="library" name="Maven: io.jsonwebtoken:jjwt-jackson:0.11.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: io.jsonwebtoken:jjwt-impl:0.11.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.15" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.1" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.woodstox:stax2-api:4.2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.woodstox:woodstox-core:6.2.7" level="project" />
+    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.3.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
   </component>
 </module>
