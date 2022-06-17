@@ -11,6 +11,8 @@
                         <meta http-equiv="X-UA-Compatible" content="IE=edge">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Admin - Account</title>
+                        <!-- title icon -->
+                        <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
                         <!-- bootstrap css -->
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
                             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
@@ -165,39 +167,12 @@
                             if (message !== "") {
                                 alert(message);
                             }
+                            
                             var app = angular.module("myapp", []);
                             app.controller("myctl", function ($scope) {
 
                             })
 
-                            // function validateForm() {
-                            //     var name = document.form.userName.value ;
-                            //     var password = document.form.password.value ;
-                            //     var phone = document.form.phone.value ;
-                            //     var email = document.form.email.value ;
-                            //     if (name == null || name == ""){
-                            //         document.getElementsByName("erName").innerHTML = "<label >Please enter Username</label>";
-                            //     }else {
-                            //         document.getElementsByName("erName").innerHTML = "<label ></label>";
-                            //     }
-                            //     if (password == null || password == "" || password<5 || password >30){
-                            //         document.getElementsByName("erPassword").innerHTML = "<label >Please enter Password between 5 and 30 characters</label>";
-                            //     }else {
-                            //         document.getElementsByName("erPassword").innerHTML = "<label ></label>";
-                            //     }
-                            //     if (email == null || email == "" ){
-                            //         document.getElementsByName("erEmail").innerHTML = "<label >Please enter Email <label>";
-                            //     }else {
-                            //         document.getElementsByName("erEmail").innerHTML = "<label ></label>";
-                            //     }
-                            //     if (phone == null || phone == "" ){
-                            //         document.getElementsByName("erPhone").innerHTML = "<label >Please enter Phone <label>";
-                            //     }else {
-                            //         document.getElementsByName("erPhone").innerHTML = "<label ></label>";
-                            //     }
-                            //
-                            //
-                            // }
 
                         </script>
                         <!-- header -->

@@ -10,7 +10,7 @@
                         <meta charset="UTF-8">
                         <meta http-equiv="X-UA-Compatible" content="IE=edge">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Admin Home</title>
+                        <title>Admin - Report</title>
                         <!-- title icon -->
                         <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -26,12 +26,34 @@
 
 
                         <main class="m-5" style="min-height: 100vh;">
-                            <h2>Homepage</h2>
+                            <div class="container w-50">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Revenue</th>
+                                            <th scope="col">Sold Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="item" items="${reports}" varStatus="loop">
+                                            <tr>
+                                                <th scope="row">${item.categories.name}</th>
+                                                <th>${item.sum}</th>
+                                                <th>${item.count}</th>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
                         </main>
 
 
                         <!-- header -->
                         <jsp:include page="common/footer.jsp"></jsp:include>
+
+
+
                     </body>
 
                     </html>

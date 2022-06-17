@@ -11,7 +11,8 @@
                         <meta http-equiv="X-UA-Compatible" content="IE=edge">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Admin - Category</title>
-
+                        <!-- title icon -->
+                        <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
                             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -42,11 +43,11 @@
                                         <form:form action="" modelAttribute="category">
                                             <div class="form-group mb-3">
                                                 <form:label path="id">Category ID: </form:label>
-                                                <form:input path="id" class="form-control" type="text" />
+                                                <form:input path="id" class="form-control" type="text" required="true" />
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="name">Category Name</form:label>
-                                                <form:input path="name" class="form-control" type="text" />
+                                                <form:input path="name" class="form-control" type="text" required="true" />
                                             </div>
                                             <button class="btn btn-success" formaction="/admin/category/create" formmethod="post">CREATE</button>
                                             <button class="btn btn-secondary" formaction="/admin/category/update" formmethod="post">UPDATE</button>
@@ -87,7 +88,21 @@
                         <!-- header -->
                         <jsp:include page="common/footer.jsp"></jsp:include>
 
-
+                        <script>
+                            let message = ""
+                            if ("${param.message}" != "") {
+                                message += "Message: ${param.message}\n"
+                            }
+                            if ("${param.error}" != "") {
+                                message += "Error: ${param.error}\n"
+                            }
+                            if ("${message}" != "") {
+                                message += "Message: ${message}\n"
+                            }
+                            if (message !== "") {
+                                alert(message);
+                            }
+                        </script>
 
                     </body>
 

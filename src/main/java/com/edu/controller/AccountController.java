@@ -75,7 +75,8 @@ public class AccountController {
     }
 
     @GetMapping("/account/login")
-    public String getLogin(@RequestParam(required = false) String message) {
+    public String getLogin(@RequestParam(required = false) String message,
+            @RequestParam(required = false) String error) {
         return "user/login";
     }
 
