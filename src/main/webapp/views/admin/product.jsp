@@ -25,6 +25,8 @@
                         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
                         <!-- my js -->
                         <script src="/js/script.js" defer></script>
+                        <!-- AngularJS -->
+                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
                     </head>
 
                     <body>
@@ -32,8 +34,8 @@
                         <jsp:include page="common/header.jsp"></jsp:include>
 
 
-                        <main class="m-5" style="min-height: 100vh;">
-                            <div class="container w-75">
+                        <main class="m-5" style="min-height: 100vh;" ng-app="myapp">
+                            <div class="container w-75" ng-controller="myctl">
                                 <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#edit" type="button" role="tab"
@@ -47,7 +49,7 @@
                                 <div class="tab-content" id="myTabContent">
                                     <!-- edit tab -->
                                     <div class="tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="edit-tab">
-                                        <form:form action="" modelAttribute="product" enctype="multipart/form-data">
+                                        <form:form action="" modelAttribute="product" enctype="multipart/form-data" name="frmValidate">
                                             <div class="form-group mb-3">
                                                 <form:label path="image">Image: </form:label>
                                                 <figure>
@@ -72,11 +74,15 @@
 
                                             <div class="form-group mb-3">
                                                 <form:label path="name">Name</form:label>
-                                                <form:input path="name" class="form-control" type="text" />
+                                                <form:input path="name" ng-model="name" class="form-control" type="text" required="true" minlength="5" />
+                                                <label ng-show="frmValidate.name.$invalid" class="text-danger">Please enter Name and must be greater than 5
+                                                    characters !!</label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="price">Price: </form:label>
-                                                <form:input path="price" class="form-control" type="number" />
+                                                <form:input path="price" required="true" min="1" ng-model="price" class="form-control" type="number" />
+                                                <label ng-show="frmValidate.price.$invalid" class="text-danger">Please enter price and must not be a negative
+                                                    number !!</label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="available">Available: </form:label>
@@ -89,11 +95,13 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="categoryid">Category:</form:label>
-                                                <form:input path="categoryid.id" class="form-control" type="text" />
-                                                <span class="text-danger">${errorCategoryId}</span>
+                                                <form:input path="categoryid" required="true" ng-model="categoryid" class="form-control" type="text" />
+                                                <label ng-show="frmValidate.categoryid.$invalid" class="text-danger">Please enter category</label>
                                             </div>
-                                            <button class="btn btn-success" formaction="/admin/product/create" formmethod="post">CREATE</button>
-                                            <button class="btn btn-secondary" formaction="/admin/product/update" formmethod="post">UPDATE</button>
+                                            <button class="btn btn-success" formaction="/admin/product/create" formmethod="post"
+                                                ng-disabled="frmValidate.$invalid">CREATE</button>
+                                            <button class="btn btn-secondary" formaction="/admin/product/update" formmethod="post"
+                                                ng-disabled="frmValidate.$invalid">UPDATE</button>
                                             <button class="btn btn-danger" formaction="/admin/product/delete/${product.id}" formmethod="get">DELETE</button>
                                             <button class="btn btn-info" formaction="/admin/product/" formmethod="get">RESET</button>
                                         </form:form>
@@ -145,6 +153,7 @@
 
 
                         <script>
+
                             let message = ""
                             if ("${param.message}" != "") {
                                 message += "Message: ${param.message}\n"
@@ -158,6 +167,9 @@
                             if (message !== "") {
                                 alert(message);
                             }
+                            var app = angular.module("myapp", []);
+                            app.controller("myctl", function ($scope) {
+                            })
                         </script>
                     </body>
 

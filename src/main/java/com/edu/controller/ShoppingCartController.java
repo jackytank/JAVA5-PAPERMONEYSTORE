@@ -49,7 +49,7 @@ public class ShoppingCartController {
         order.setAddress(acc.getAddress());
         order.setUsername(acc);
         orderDAO.save(order);
-
+        cartService.clear();
         return "redirect:/cart/view";
     }
 
@@ -57,6 +57,7 @@ public class ShoppingCartController {
     public String view(ModelMap model) {
         model.addAttribute("cartItems", cartService.getCartItems());
         model.addAttribute("totalAmount", cartService.getAmount());
+        sessionService.set("cartQuantity", cartService.getCount());
         return "user/cart";
     }
 
