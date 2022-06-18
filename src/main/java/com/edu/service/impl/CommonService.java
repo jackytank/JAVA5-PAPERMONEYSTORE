@@ -15,6 +15,8 @@ public class CommonService implements CommonUtils {
     @Autowired
     HttpServletRequest req;
 
+    public static boolean isLogin = false;
+
     @Override
     public File saveFile(MultipartFile multipartFile, String path) {
         if (multipartFile != null) {

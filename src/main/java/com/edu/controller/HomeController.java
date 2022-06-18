@@ -4,9 +4,11 @@ import java.util.Optional;
 
 import com.edu.entity.Account;
 import com.edu.entity.Product;
+import com.edu.model.AccountForm;
 import com.edu.model.MailInfo;
 import com.edu.service.MailerService;
 import com.edu.service.SessionService;
+import com.edu.service.impl.CommonService;
 import com.edu.utils.Check;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,17 +42,18 @@ public class HomeController {
     //
     @GetMapping("/")
     public String paginate(@RequestParam Optional<Boolean> isLogin,
-            @RequestParam(required = false) String sessionUsername,
+            @RequestParam(required = false) Optional<String> sessionUsername,
             @RequestParam(required = false) String error,
             @RequestParam(required = false) String message,
             @RequestParam("page") Optional<Integer> page,
             ModelMap model) {
-        
+
         Pageable pageable = PageRequest.of(page.orElse(0), 6);
         Page<Product> pages = productDAO.findAll(pageable);
+        model.addAttribute("accForm", new AccountForm());
         model.addAttribute("page", pages);
-        model.addAttribute("isLogin", isLogin.orElse(false));
-        model.addAttribute("sessionUsername", sessionUsername);
+        model.addAttribute("isLogin", isLogin.orElse(CommonService.isLogin));
+        model.addAttribute("sessionUsername", sessionUsername.orElse((String) session.get("username")));
         model.addAttribute("message", message);
         return "/user/index";
     }
@@ -88,12 +91,16 @@ public class HomeController {
     }
 
     @GetMapping("/aboutus")
-    public String aboutus() {
+    public String aboutus(Model model) {
+        model.addAttribute("isLogin", CommonService.isLogin);
+        model.addAttribute("sessionUsername", session.get("username"));
         return "/user/about-us";
     }
 
     @GetMapping("/contactus")
-    public String contactus() {
+    public String contactus(Model model) {
+        model.addAttribute("isLogin", CommonService.isLogin);
+        model.addAttribute("sessionUsername", session.get("username"));
         return "/user/contact-us";
     }
 

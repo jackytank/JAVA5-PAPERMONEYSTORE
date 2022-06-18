@@ -5,7 +5,7 @@ import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+// @SpringBootTest
 class Java5AssmApplicationTests {
 
 	@Test
@@ -21,8 +21,8 @@ class Java5AssmApplicationTests {
 		config.setStringOutputType("base64");
 		encryptor.setConfig(config);
 
-		String text = "awuupvwznnhynisa";
-		System.out.println("Encrypted key: " + encryptor.encrypt(text));
+		String text = "";
+		System.out.println("Encrypted Text: " + encryptor.encrypt(text));
 	}
 
 }

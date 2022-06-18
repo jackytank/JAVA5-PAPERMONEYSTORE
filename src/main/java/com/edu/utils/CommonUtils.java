@@ -9,5 +9,4 @@ public interface CommonUtils {
 
     public String randomAlphaNumericString(int size);
 
-    public static boolean isLogin = false;
 }

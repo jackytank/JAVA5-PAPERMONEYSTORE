@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -34,6 +37,8 @@ import com.edu.model.AccountForm;
 import com.edu.service.CookieService;
 import com.edu.service.ParamService;
 import com.edu.service.SessionService;
+import com.edu.service.UserService;
+import com.edu.service.impl.CommonService;
 import com.edu.utils.CommonUtils;
 
 @Controller
@@ -51,27 +56,52 @@ public class AccountController {
     CookieService cookie;
 
     @Autowired
-    CommonUtils common;
+    CommonService common;
 
-    @PostMapping("/account/process_register")
-    public ModelAndView processRegistration(@ModelAttribute("acc") AccountForm accountForm, ModelMap modelMap) {
-        System.out.println("accountForm" + accountForm.toString());
+    @Autowired
+    UserService userService;
 
-        // check xem username da ton tai ko
-        if (dao.existsAccountById(accountForm.getId())) {
-            modelMap.addAttribute("message", "Username is already existed!!");
+    @PostMapping("/account/signup")
+    public ModelAndView postSignup(ModelMap modelMap, @RequestParam("image") MultipartFile image,
+            @ModelAttribute("accForm") AccountForm form, HttpServletRequest req)
+            throws IOException, MessagingException {
+        Account account = new Account();
+        BeanUtils.copyProperties(form, account);
+        // check if account already existed
+        if (dao.existsAccountById(account.getId())) {
+            modelMap.addAttribute("error", "Account:" + account.getId() + " already exists!!");
             return new ModelAndView("redirect:/", modelMap);
         }
+        // check if image name is null
+        if (!image.getOriginalFilename().equals("")) {
+            account.setImage(image.getOriginalFilename());
+        } else {
+            if (account.getImage() == null) {
+                account.setImage("default.jpg");
+            } else {
+                account.setImage(dao.getById(account.getId()).getImage());
+                common.saveFile(image, "user");
+            }
+        }
 
-        Account account = new Account();
-        BeanUtils.copyProperties(accountForm, account);// copy thuoc tinh cua accountform vao account
-        account.setImage("default.jpg");
-        account.setAdmin(false);
-        account.setActivated(false);
-        System.out.println("account" + account.toString());
-        dao.save(account);
-        modelMap.addAttribute("message", "Signup success!! Username: " + account.getId());
+        userService.register(account, getSiteURL(req));
+
+        modelMap.addAttribute("message", "Please check your email to verify your account");
         return new ModelAndView("redirect:/", modelMap);
+    }
+
+    private String getSiteURL(HttpServletRequest req) {
+        String siteURL = req.getRequestURL().toString();
+        return siteURL.replace(req.getServletPath(), "");
+    }
+
+    @GetMapping("/verify")
+    public String verifyAcc(@RequestParam String code) {
+        if (userService.verify(code)) {
+            return "user/verify-success";
+        } else {
+            return "user/verify-fail";
+        }
     }
 
     @GetMapping("/account/login")
@@ -89,7 +119,7 @@ public class AccountController {
 
         try {
             Account user = dao.findById(username).get();
-            if (user != null && user.getPassword().equals(password)) {
+            if (user != null && user.getPassword().equals(password) && user.isActivated()) {
                 session.set("user", user);
                 session.set("username", username);
                 String uri = session.get("security-uri");
@@ -105,8 +135,10 @@ public class AccountController {
                         cookie.remove("username");
                         cookie.remove("password");
                     }
+                    CommonService.isLogin = true;
                     model.addAttribute("sessionUsername", user.getId());
                     model.addAttribute("isLogin", true);
+
                     if (user.isAdmin()) {
                         return new ModelAndView("redirect:/admin/index", model);
                     }
@@ -115,7 +147,7 @@ public class AccountController {
                 }
 
             } else {
-                model.addAttribute("message", "Invalid password");
+                model.addAttribute("message", "Invalid username or password or your account is not verified!!");
                 return new ModelAndView("user/login", model);
             }
         } catch (Exception e) {
@@ -160,6 +192,7 @@ public class AccountController {
 
     @RequestMapping("/account/logout")
     public ModelAndView logout(ModelMap model) {
+        CommonService.isLogin = false;
         session.remove("user");
         session.remove("username");
         session.remove("security-uri");

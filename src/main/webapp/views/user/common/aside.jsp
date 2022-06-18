@@ -4,7 +4,7 @@
             <h5 class="mb-0">
                 <button class="btn btn-link text-decoration-none text-black btn out" data-bs-toggle="collapse" data-bs-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
-                    <img src="/resources/img/vietnam.png" width="24" alt="" srcset="" />
+                    <img src="/img/vietnam.png" width="24" alt="" srcset="" />
                     Vietnam Banknotes
                 </button>
             </h5>
@@ -30,7 +30,7 @@
             <h5 class="mb-0">
                 <button class="btn btn-link text-decoration-none text-black btn out" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <img src="/resources/img/globe.png" width="24" alt="" srcset="" />
+                    <img src="/img/globe.png" width="24" alt="" srcset="" />
                     Global Banknotes
                 </button>
             </h5>
@@ -56,7 +56,7 @@
             <h5 class="mb-0">
                 <button class="btn btn-link text-decoration-none text-black btn out" data-bs-toggle="collapse" data-bs-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseThree">
-                    <img src="/resources/img/coin.png" width="24" alt="" srcset="" /> Coins
+                    <img src="/img/coin.png" width="24" alt="" srcset="" /> Coins
                 </button>
             </h5>
         </div>
@@ -81,7 +81,7 @@
             <h5 class="mb-0">
                 <button class="btn btn-link text-decoration-none text-black btn out" data-bs-toggle="collapse" data-bs-target="#collapseFour"
                     aria-expanded="true" aria-controls="collapseFour">
-                    <img src="/resources/img/counter.png" width="24" alt="" srcset="" />
+                    <img src="/img/counter.png" width="24" alt="" srcset="" />
                     Nice Series Number
                 </button>
             </h5>

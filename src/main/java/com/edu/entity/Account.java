@@ -1,10 +1,14 @@
 package com.edu.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
@@ -35,11 +39,14 @@ public class Account {
     @Column(name = "activated", nullable = false)
     private Boolean activated = false;
 
+    @Column(name = "verifycode",nullable = true, length = 100)
+    private String verifycode;
+
     public Account() {
     }
 
     public Account(String id, String email, String password, String phone, String address, Boolean admin, String image,
-            Boolean activated) {
+            Boolean activated, String verifycode) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -48,6 +55,7 @@ public class Account {
         this.admin = admin;
         this.image = image;
         this.activated = activated;
+        this.verifycode = verifycode;
     }
 
     public String getId() {
@@ -122,6 +130,79 @@ public class Account {
         this.activated = activated;
     }
 
+    public String getVerifycode() {
+        return this.verifycode;
+    }
+
+    public void setVerifycode(String verifycode) {
+        this.verifycode = verifycode;
+    }
+
+    public Account id(String id) {
+        setId(id);
+        return this;
+    }
+
+    public Account email(String email) {
+        setEmail(email);
+        return this;
+    }
+
+    public Account password(String password) {
+        setPassword(password);
+        return this;
+    }
+
+    public Account phone(String phone) {
+        setPhone(phone);
+        return this;
+    }
+
+    public Account address(String address) {
+        setAddress(address);
+        return this;
+    }
+
+    public Account admin(Boolean admin) {
+        setAdmin(admin);
+        return this;
+    }
+
+    public Account image(String image) {
+        setImage(image);
+        return this;
+    }
+
+    public Account activated(Boolean activated) {
+        setActivated(activated);
+        return this;
+    }
+
+    public Account verifycode(String verifycode) {
+        setVerifycode(verifycode);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Account)) {
+            return false;
+        }
+        Account account = (Account) o;
+        return Objects.equals(id, account.id) && Objects.equals(email, account.email)
+                && Objects.equals(password, account.password) && Objects.equals(phone, account.phone)
+                && Objects.equals(address, account.address) && Objects.equals(admin, account.admin)
+                && Objects.equals(image, account.image) && Objects.equals(activated, account.activated)
+                && Objects.equals(verifycode, account.verifycode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, password, phone, address, admin, image, activated, verifycode);
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -133,6 +214,7 @@ public class Account {
                 ", admin='" + isAdmin() + "'" +
                 ", image='" + getImage() + "'" +
                 ", activated='" + isActivated() + "'" +
+                ", verifycode='" + getVerifycode() + "'" +
                 "}";
     }
 
