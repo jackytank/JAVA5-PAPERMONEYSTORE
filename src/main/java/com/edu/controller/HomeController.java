@@ -59,7 +59,8 @@ public class HomeController {
     }
 
     @PostMapping("/contactus/send")
-    public String send(Model model, @RequestParam Optional<String> name, @RequestParam Optional<String> phone,
+    public String send(Model model, @ModelAttribute("accForm") AccountForm accForm, @RequestParam Optional<String> name,
+            @RequestParam Optional<String> phone,
             @RequestParam Optional<String> email, @RequestParam Optional<String> note) throws Exception {
         // save contact input to session after website reload
         String _name = name.orElse(session.get("contactName"));
@@ -91,14 +92,14 @@ public class HomeController {
     }
 
     @GetMapping("/aboutus")
-    public String aboutus(Model model) {
+    public String aboutus(Model model, @ModelAttribute("accForm") AccountForm accForm) {
         model.addAttribute("isLogin", CommonService.isLogin);
         model.addAttribute("sessionUsername", session.get("username"));
         return "/user/about-us";
     }
 
     @GetMapping("/contactus")
-    public String contactus(Model model) {
+    public String contactus(Model model, @ModelAttribute("accForm") AccountForm accForm) {
         model.addAttribute("isLogin", CommonService.isLogin);
         model.addAttribute("sessionUsername", session.get("username"));
         return "/user/contact-us";

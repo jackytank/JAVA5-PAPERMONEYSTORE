@@ -63,10 +63,10 @@ public class AccountController {
 
     @PostMapping("/account/signup")
     public ModelAndView postSignup(ModelMap modelMap, @RequestParam("image") MultipartFile image,
-            @ModelAttribute("accForm") AccountForm form, HttpServletRequest req)
+            @ModelAttribute("accForm") AccountForm accForm, HttpServletRequest req)
             throws IOException, MessagingException {
         Account account = new Account();
-        BeanUtils.copyProperties(form, account);
+        BeanUtils.copyProperties(accForm, account);
         // check if account already existed
         if (dao.existsAccountById(account.getId())) {
             modelMap.addAttribute("error", "Account:" + account.getId() + " already exists!!");

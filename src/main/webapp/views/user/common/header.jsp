@@ -65,8 +65,8 @@
 					<div class="container d-flex justify-content-center">
 						<ul class="nav">
 							<li class="nav-item"><a href="/" class="nav-link text-dark">SHOP</a></li>
-							<li class="nav-item"><a href="contactus" class="nav-link text-dark">CONTACT US</a></li>
-							<li class="nav-item"><a href="aboutus" class="nav-link text-dark">ABOUT US</a></li>
+							<li class="nav-item"><a href="/contactus" class="nav-link text-dark">CONTACT US</a></li>
+							<li class="nav-item"><a href="/aboutus" class="nav-link text-dark">ABOUT US</a></li>
 						</ul>
 					</div>
 				</div>
