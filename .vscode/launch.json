@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Bcryptor",
+            "request": "launch",
+            "mainClass": "com.edu.utils.Bcryptor",
+            "projectName": "JAVA5-ASSM"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-Java5AssmApplication<JAVA5-ASSM>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

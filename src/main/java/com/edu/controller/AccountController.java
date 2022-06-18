@@ -39,6 +39,7 @@ import com.edu.service.ParamService;
 import com.edu.service.SessionService;
 import com.edu.service.UserService;
 import com.edu.service.impl.CommonService;
+import com.edu.utils.Bcryptor;
 import com.edu.utils.CommonUtils;
 
 @Controller
@@ -76,7 +77,7 @@ public class AccountController {
         if (!image.getOriginalFilename().equals("")) {
             account.setImage(image.getOriginalFilename());
         } else {
-            if (account.getImage() == null) {
+            if (image.getOriginalFilename() == null) {
                 account.setImage("default.jpg");
             } else {
                 account.setImage(dao.getById(account.getId()).getImage());
@@ -119,7 +120,7 @@ public class AccountController {
 
         try {
             Account user = dao.findById(username).get();
-            if (user != null && user.getPassword().equals(password) && user.getActivated()) {
+            if (user != null && Bcryptor.matches(password, user.getPassword()) && user.getActivated()) {
                 session.set("user", user);
                 session.set("username", username);
                 String uri = session.get("security-uri");
@@ -178,7 +179,7 @@ public class AccountController {
                     return new ModelAndView("redirect:/", modelMap);
                 } else {
                     user.setPassword(newPassword);
-                    dao.save(user);
+                    userService.save(user);
                     modelMap.addAttribute("message", "User password updated!!");
                 }
             }
@@ -247,14 +248,14 @@ public class AccountController {
         if (!image.getOriginalFilename().equals("")) {
             account.setImage(image.getOriginalFilename());
         } else {
-            if (account.getImage() == null) {
+            if (image.getOriginalFilename() == null) {
                 account.setImage("default.jpg");
             } else {
                 account.setImage(dao.getById(account.getId()).getImage());
                 common.saveFile(image, "user");
             }
         }
-        dao.save(account);
+        userService.save(account);
         modelMap.addAttribute("message", "Update success!!");
         return new ModelAndView("redirect:/admin/account/edit/" + form.getId(), modelMap);
     }
@@ -278,7 +279,7 @@ public class AccountController {
         if (!image.getOriginalFilename().equals("")) {
             account.setImage(image.getOriginalFilename());
         } else {
-            if (account.getImage() == null) {
+            if (image.getOriginalFilename() == null) {
                 account.setImage("default.jpg");
             } else {
                 account.setImage(dao.getById(account.getId()).getImage());
@@ -286,7 +287,7 @@ public class AccountController {
             }
         }
 
-        dao.save(account);
+        userService.save(account);
 
         modelMap.addAttribute("message", "Create success!! Username: " + account.getId());
         return new ModelAndView("redirect:/admin/account", modelMap);

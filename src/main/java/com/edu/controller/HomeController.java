@@ -47,14 +47,12 @@ public class HomeController {
             @RequestParam(required = false) String message,
             @RequestParam("page") Optional<Integer> page,
             ModelMap model) {
-
         Pageable pageable = PageRequest.of(page.orElse(0), 6);
         Page<Product> pages = productDAO.findAll(pageable);
         model.addAttribute("accForm", new AccountForm());
         model.addAttribute("page", pages);
         model.addAttribute("isLogin", isLogin.orElse(CommonService.isLogin));
         model.addAttribute("sessionUsername", sessionUsername.orElse((String) session.get("username")));
-        model.addAttribute("message", message);
         return "/user/index";
     }
 

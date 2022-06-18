@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.edu.dao.AccountDAO;
 import com.edu.entity.Account;
 import com.edu.model.MailInfo;
+import com.edu.utils.Bcryptor;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -22,18 +23,22 @@ public class UserService {
     MailerService mailer;
 
     public void register(Account acc, String url) throws MessagingException {
-        
-        // String encodedPassword = MD5Encoder.encode(acc.getPassword().getBytes());
-
+        //encode the password with Bcrypt algorithm
+        String encodedPassword = Bcryptor.encrypt(acc.getPassword());
         String randomCode = RandomString.make(64);
-        // acc.setPassword(encodedPassword);
+        acc.setPassword(encodedPassword);
         acc.setVerifycode(randomCode);
         acc.setActivated(false);
         acc.setAdmin(false);
-        System.out.println(acc.toString());
         dao.save(acc);
         sendVerifyEmail(acc, url);
+    }
 
+    public void save(Account acc) {
+        //encode the password with Bcrypt algorithm
+        String encodedPassword = Bcryptor.encrypt(acc.getPassword());
+        acc.setPassword(encodedPassword);
+        dao.save(acc);
     }
 
     public void sendVerifyEmail(Account acc, String url) throws MessagingException {

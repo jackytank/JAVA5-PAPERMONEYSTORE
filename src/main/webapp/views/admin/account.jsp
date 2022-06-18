@@ -118,17 +118,17 @@
 
                                     <!-- list tab -->
                                     <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover" style="table-layout: fixed; word-wrap: break-word;">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Image</th>
                                                     <th scope="col">Username</th>
                                                     <th scope="col">Email</th>
-                                                    <th scope="col">Password</th>
+                                                    <th style="width:25%" scope="col">Password</th>
                                                     <th scope="col">Phone</th>
                                                     <th scope="col">Address</th>
-                                                    <th scope="col">Is activated</th>
-                                                    <th scope="col">Is admin</th>
+                                                    <th scope="col">Activated?</th>
+                                                    <th scope="col">Admin?</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -137,17 +137,17 @@
                                                         <th scope="row">
                                                             <img src="/upload/user/${item.image}" alt="" class="img-fluid img-thumbnail" width="80" height="80">
                                                         </th>
-                                                        <th>${item.id}</th>
-                                                        <th>${item.email}</th>
-                                                        <th>${item.password}</th>
-                                                        <th>${item.phone}</th>
-                                                        <th>${item.address}</th>
-                                                        <th>${item.activated}</th>
-                                                        <th>${item.admin}</th>
-                                                        <th class="text-end">
+                                                        <td>${item.id}</td>
+                                                        <td>${item.email}</td>
+                                                        <td>${item.password}</td>
+                                                        <td>${item.phone}</td>
+                                                        <td>${item.address}<tdh>
+                                                        <td>${item.activated}</td>
+                                                        <td>${item.admin}</td>
+                                                        <td class="text-end">
                                                             <a href="/admin/account/edit/${item.id}" class="btn btn-primary" role="button">=></a>
                                                             <a href="/admin/account/delete/${item.id}" class="btn btn-danger" role="button">Del</a>
-                                                        </th>
+                                                        </td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
