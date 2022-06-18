@@ -62,7 +62,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/detail/{id}")
-    public String detail(@PathVariable("id") int id, ModelMap model) {
+    public String detail(@PathVariable("id") int id, @ModelAttribute("accForm") AccountForm accForm, ModelMap model) {
         Product product = productDAO.findById(id).get();
         // Gioi han limit cac product lien quan la 5
         Pageable limit = PageRequest.of(0, 5);
