@@ -119,7 +119,7 @@ public class AccountController {
 
         try {
             Account user = dao.findById(username).get();
-            if (user != null && user.getPassword().equals(password) && user.isActivated()) {
+            if (user != null && user.getPassword().equals(password) && user.getActivated()) {
                 session.set("user", user);
                 session.set("username", username);
                 String uri = session.get("security-uri");
@@ -139,7 +139,7 @@ public class AccountController {
                     model.addAttribute("sessionUsername", user.getId());
                     model.addAttribute("isLogin", true);
 
-                    if (user.isAdmin()) {
+                    if (user.getAdmin()) {
                         return new ModelAndView("redirect:/admin/index", model);
                     }
                     return new ModelAndView("redirect:/", model);
@@ -165,6 +165,10 @@ public class AccountController {
         try {
             Account user = dao.findById(session.get("username")).get();
             if (user != null) {
+                if (!user.getPassword().equals(oldPassword)) {
+                    modelMap.addAttribute("message", "Old password is incorrect!!");
+                    return new ModelAndView("redirect:/", modelMap);
+                }
                 if (!newPassword.equals(retypePassword)) {
                     modelMap.addAttribute("error", "New password and confirm password didn't matched!!");
                     return new ModelAndView("redirect:/", modelMap);
@@ -173,11 +177,6 @@ public class AccountController {
                     modelMap.addAttribute("error", "New password or confirm can't be empty!!");
                     return new ModelAndView("redirect:/", modelMap);
                 } else {
-                    // if (user != null &&
-                    // user.getPassword().equals(changePasswordForm.getOldPassword())) {
-                    // if
-                    // (changePasswordForm.getNewPassword().endsWith(changePasswordForm.getRetypePassword()))
-                    // {
                     user.setPassword(newPassword);
                     dao.save(user);
                     modelMap.addAttribute("message", "User password updated!!");
@@ -211,8 +210,9 @@ public class AccountController {
     }
 
     @RequestMapping("/admin/account/edit/{id}")
-    public String edit(@PathVariable("id") String id, @RequestParam(required = false) String message, ModelMap model) {
+    public String edit(@PathVariable("id") String id, ModelMap model) {
         Account account = dao.findById(id).get();
+        System.out.println(account.toString());
         model.addAttribute("account", account);
         List<Account> accounts = dao.findAll();
         model.addAttribute("accounts", accounts);

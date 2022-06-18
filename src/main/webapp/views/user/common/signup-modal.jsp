@@ -13,8 +13,7 @@
 
                     <body>
                         <!--SIGNUP MODAL-->
-                        <div class="modal fade" ng-app="myapp" ng-controller="myctl" id="SignupModal" tabindex="-1" aria-labelledby="SignupModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade" id="SignupModal" tabindex="-1" aria-labelledby="SignupModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -22,8 +21,8 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body mb-3">
-                                        <form:form action="/account/signup" method="post" class="form" name="frm" enctype="multipart/form-data"
-                                            modelAttribute="accForm">
+                                        <form:form class="needs-validation" novalidate="true" action="/account/signup" method="post" name="frm"
+                                            enctype="multipart/form-data" modelAttribute="accForm">
                                             <div class="signup mt-3">
                                                 <div class="form-group mb-3">
                                                     <form:label path="image">Image: </form:label>
@@ -47,67 +46,56 @@
                                                         <b>Username</b>
                                                     </form:label>
                                                     <form:input type="text" path="id" class="form-control" placeholder="VD: abc123" required="true"
-                                                        minlength="5" maxlength="30" ng-model="id" />
-                                                    <em ng-if="frm.id.$invalid" class="text-danger h6">Nhập từ 5
+                                                        minlength="5" maxlength="30" />
+                                                    <em class="invalid-feedback">Nhập từ 5
                                                         đến 30 ký tự</em>
                                                 </div>
                                                 <div class="mb-3">
                                                     <form:label path="email" for="email"><b>Email</b></form:label>
-                                                    <form:input required="true" ng-model="email" type="email" path="email" class="form-control"
+                                                    <form:input required="true" type="email" path="email" class="form-control"
                                                         placeholder="VD: abc@gmail.com" />
-                                                    <em ng-if="frm.email.$invalid" class="text-danger h6">Không
+                                                    <em class="invalid-feedback">Không
                                                         đúng định dạng email</em>
                                                 </div>
                                                 <hr>
                                                 <div class="mb-3">
                                                     <form:label path="password" for="password"><b>Password</b></form:label>
                                                     <form:input type="password" path="password" class="form-control" placeholder="VD: abc123" required="true"
-                                                        minlength="5" maxlength="30" ng-model="password" />
-                                                    <em ng-if="frm.password.$invalid" class="text-danger h6">Nhập từ 5 đến 30 ký tự</em>
+                                                        minlength="5" maxlength="30" />
+                                                    <em class="invalid-feedback">Nhập từ 5 đến 30 ký tự</em>
                                                 </div>
                                                 <div class="mb-3">
                                                     <form:label path="retypePassword" for="retypePassword"><b>Retype Password</b></form:label>
                                                     <form:input type="password" path="retypePassword" class="form-control"
-                                                        placeholder="Nhập lại đúng phần Password !" required="true" minlength="5" maxlength="30"
-                                                        ng-model="retypePassword" />
-                                                    <em ng-if="frm.retypePassword.$invalid" class="text-danger h6">Nhập
+                                                        placeholder="Nhập lại đúng phần Password !" required="true" minlength="5" maxlength="30" />
+                                                    <em class="invalid-feedback">Nhập
                                                         từ 5 đến 30 ký tự</em>
                                                 </div>
                                                 <hr>
                                                 <div class="mb-3">
                                                     <form:label path="phone" for="phone"><b>Phone</b></form:label>
-                                                    <form:input type="text" path="phone" class="form-control" placeholder="VD: 0123456789" required="true"
-                                                        minlength="10" maxlength="10" ng-model="phone" />
-                                                    <em ng-if="frm.phone.$invalid" class="text-danger h6">Không đúng định dạng</em>
+                                                    <form:input type="tel" path="phone" class="form-control" placeholder="VD: 0123456789" required="true"
+                                                        minlength="10" maxlength="10" />
+                                                    <em class="invalid-feedback">Không đúng định dạng</em>
                                                 </div>
                                                 <div class="mb-3">
                                                     <form:label path="address" for="address"><b>Address</b></form:label>
                                                     <form:input type="text" path="address" class="form-control" placeholder="Địa chỉ đang hiện tại của bạn."
-                                                        required="true" minlength="1" maxlength="100" ng-model="address" />
-                                                    <em ng-if="frm.address.$invalid" class="text-success h6">Vui Lòng cung cấp địa chỉ
+                                                        required="true" minlength="1" maxlength="100" />
+                                                    <em class="invalid-feedback">Vui Lòng cung cấp địa chỉ
                                                         chính
                                                         xác để việc giao hàng nhanh chóng hơn.</em>
                                                 </div>
                                                 <hr>
                                             </div>
                                             <div class="d-grid gap-2">
-                                                <button ng-disabled="frm.$invalid" type="submit" class="btn btn-primary">SUBMIT</button>
+                                                <button type="submit" class="btn btn-primary">SUBMIT</button>
                                             </div>
                                         </form:form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <script>
-                            var app = angular.module("myapp", []);
-                            app.controller("myctl", function ($scope) {
-
-                            })
-
-
-                        </script>
-
-
                     </body>
 
                     </html>

@@ -54,7 +54,7 @@ public class UserService {
 
     public boolean verify(String verifyCode) {
         Account acc = dao.findByVerifyCode(verifyCode);
-        if (acc == null || acc.isActivated()) {
+        if (acc == null || acc.getActivated()) {
             return false;
         } else {
             acc.setVerifycode("0");

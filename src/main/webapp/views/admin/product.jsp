@@ -25,8 +25,6 @@
                         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
                         <!-- my js -->
                         <script src="/js/script.js" defer></script>
-                        <!-- AngularJS -->
-                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
                     </head>
 
                     <body>
@@ -49,7 +47,8 @@
                                 <div class="tab-content" id="myTabContent">
                                     <!-- edit tab -->
                                     <div class="tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="edit-tab">
-                                        <form:form action="" modelAttribute="product" enctype="multipart/form-data" name="frmValidate">
+                                        <form:form class="needs-validation" novalidate="true" action="" modelAttribute="product" enctype="multipart/form-data"
+                                            name="frmValidate">
                                             <div class="form-group mb-3">
                                                 <form:label path="image">Image: </form:label>
                                                 <figure>
@@ -74,14 +73,14 @@
 
                                             <div class="form-group mb-3">
                                                 <form:label path="name">Name</form:label>
-                                                <form:input path="name" ng-model="name" class="form-control" type="text" required="true" minlength="5" />
-                                                <label ng-show="frmValidate.name.$invalid" class="text-danger">Please enter Name and must be greater than 5
+                                                <form:input path="name" class="form-control" type="text" required="true" minlength="5" />
+                                                <label class="invalid-feedback">Please enter Name and must be greater than 5
                                                     characters !!</label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="price">Price: </form:label>
-                                                <form:input path="price" required="true" min="1" ng-model="price" class="form-control" type="number" />
-                                                <label ng-show="frmValidate.price.$invalid" class="text-danger">Please enter price and must not be a negative
+                                                <form:input path="price" min="1" ng-model="price" class="form-control" type="number" />
+                                                <label class="invalid-feedback">Please enter price and must not be a negative
                                                     number !!</label>
                                             </div>
                                             <div class="form-group mb-3">
@@ -95,8 +94,8 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="categoryid">Category:</form:label>
-                                                <form:input path="categoryid" required="true" ng-model="categoryid" class="form-control" type="text" />
-                                                <label ng-show="frmValidate.categoryid.$invalid" class="text-danger">Please enter category</label>
+                                                <form:input path="categoryid" required="true" class="form-control" type="text" />
+                                                <label class="invalid-feedback">Please enter category</label>
                                             </div>
                                             <button class="btn btn-success" formaction="/admin/product/create" formmethod="post"
                                                 ng-disabled="frmValidate.$invalid">CREATE</button>
@@ -167,9 +166,6 @@
                             if (message !== "") {
                                 alert(message);
                             }
-                            var app = angular.module("myapp", []);
-                            app.controller("myctl", function ($scope) {
-                            })
                         </script>
                     </body>
 

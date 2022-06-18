@@ -25,8 +25,6 @@
                         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
                         <!-- my js -->
                         <script src="/js/script.js" defer></script>
-                        <!-- AngularJS -->
-                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
                     </head>
 
                     <body>
@@ -49,16 +47,16 @@
                                 <div class="tab-content" id="myTabContent">
                                     <!-- edit tab -->
                                     <div class="tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="edit-tab">
-                                        <form:form action="" modelAttribute="category" name="form">
+                                        <form:form class="needs-validation" novalidate="true" action="" modelAttribute="category" name="form">
                                             <div class="form-group mb-3">
                                                 <form:label path="id">Category ID: </form:label>
-                                                <form:input ng-model="id" path="id" class="form-control" type="text" required="true" />
-                                                <label ng-show="form.id.$invalid" class="text-danger">Please enter id </label>
+                                                <form:input path="id" class="form-control" type="text" required="true" />
+                                                <label class="invalid-feedback">Please enter id </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="name">Category Name</form:label>
-                                                <form:input ng-model="name" path="name" class="form-control" type="text" required="true" />
-                                                <label ng-show="form.name.$invalid" class="text-danger">Please enter name </label>
+                                                <form:input path="name" class="form-control" type="text" required="true" />
+                                                <label class="invalid-feedback">Please enter name </label>
                                             </div>
                                             <button class="btn btn-success" formaction="/admin/category/create" formmethod="post"
                                                 ng-disabled="form.$invalid">CREATE</button>
@@ -116,9 +114,6 @@
                                 alert(message);
                             }
 
-                            var app = angular.module("myapp", []);
-                            app.controller("myctl", function ($scope) {
-                            })
                         </script>
 
                     </body>

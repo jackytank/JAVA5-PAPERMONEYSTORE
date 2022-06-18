@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class AccountForm implements Serializable{
+public class AccountForm implements Serializable {
 
     private String id;
 
@@ -27,11 +27,13 @@ public class AccountForm implements Serializable{
 
     private Boolean activated = false;
 
+    private String verifycode;
+
     public AccountForm() {
     }
 
     public AccountForm(String id, String email, String password, String retypePassword, String phone, String address,
-            Boolean admin, MultipartFile image, String imageUrl, Boolean activated) {
+            Boolean admin, MultipartFile image, String imageUrl, Boolean activated, String verifycode) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -42,6 +44,7 @@ public class AccountForm implements Serializable{
         this.image = image;
         this.imageUrl = imageUrl;
         this.activated = activated;
+        this.verifycode = verifycode;
     }
 
     public String getId() {
@@ -132,6 +135,14 @@ public class AccountForm implements Serializable{
         this.activated = activated;
     }
 
+    public String getVerifycode() {
+        return this.verifycode;
+    }
+
+    public void setVerifycode(String verifycode) {
+        this.verifycode = verifycode;
+    }
+
     public AccountForm id(String id) {
         setId(id);
         return this;
@@ -182,6 +193,11 @@ public class AccountForm implements Serializable{
         return this;
     }
 
+    public AccountForm verifycode(String verifycode) {
+        setVerifycode(verifycode);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -195,12 +211,14 @@ public class AccountForm implements Serializable{
                 && Objects.equals(retypePassword, accountForm.retypePassword)
                 && Objects.equals(phone, accountForm.phone) && Objects.equals(address, accountForm.address)
                 && Objects.equals(admin, accountForm.admin) && Objects.equals(image, accountForm.image)
-                && Objects.equals(imageUrl, accountForm.imageUrl) && Objects.equals(activated, accountForm.activated);
+                && Objects.equals(imageUrl, accountForm.imageUrl) && Objects.equals(activated, accountForm.activated)
+                && Objects.equals(verifycode, accountForm.verifycode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, retypePassword, phone, address, admin, image, imageUrl, activated);
+        return Objects.hash(id, email, password, retypePassword, phone, address, admin, image, imageUrl, activated,
+                verifycode);
     }
 
     @Override
@@ -216,6 +234,7 @@ public class AccountForm implements Serializable{
                 ", image='" + getImage() + "'" +
                 ", imageUrl='" + getImageUrl() + "'" +
                 ", activated='" + isActivated() + "'" +
+                ", verifycode='" + getVerifycode() + "'" +
                 "}";
     }
 

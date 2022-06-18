@@ -25,8 +25,6 @@
 						<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
 						<!-- my js -->
 						<script src="/js/script.js" defer></script>
-						<!-- AngularJS -->
-						<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 					</head>
 
 					<body>

@@ -21,12 +21,9 @@
                             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous" defer></script>
                         <!-- font awsome -->
                         <script src="https://kit.fontawesome.com/e136359f35.js" crossorigin="anonymous" defer></script>
-                        <!-- jquery -->
-                        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
                         <!-- my js -->
                         <script src="/js/script.js" defer></script>
-                        <!-- AngularJS -->
-                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
 
                     </head>
 
@@ -35,7 +32,7 @@
                         <jsp:include page="common/header.jsp"></jsp:include>
 
 
-                        <main class="m-5" style="min-height: 100vh;" ng-app="myapp" ng-controller="myctl">
+                        <main class="m-5" style="min-height: 100vh;">
                             <div class="container w-75">
                                 <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
@@ -50,7 +47,8 @@
                                 <div class="tab-content" id="myTabContent">
                                     <!-- edit tab -->
                                     <div class="tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="edit-tab">
-                                        <form:form action="" modelAttribute="account" enctype="multipart/form-data" name="form">
+                                        <form:form class="needs-validation" novalidate="true" action="" modelAttribute="account" enctype="multipart/form-data"
+                                            name="form">
                                             <div class="form-group mb-3">
                                                 <form:label path="image">Image: </form:label>
                                                 <figure>
@@ -70,30 +68,29 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="id">Username: </form:label>
-                                                <form:input ng-model="userName" path="id" class="form-control" type="text" required="true" />
-                                                <label ng-show="form.id.$invalid" class="text-danger">Please enter UserName </label>
+                                                <form:input path="id" class="form-control" type="text" required="true" />
+                                                <label class="invalid-feedback">Please enter UserName </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="email">Email</form:label>
-                                                <form:input ng-model="email" path="email" class="form-control" type="email" required="true" />
-                                                <label ng-show="form.email.$invalid" class="text-danger">Please enter Email </label>
+                                                <form:input path="email" class="form-control" type="email" required="true" />
+                                                <label class="invalid-feedback">Please enter Email </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="password">Password</form:label>
-                                                <form:input ng-model="password" path="password" class="form-control" type="password" minlength="5" maxlength="30"
-                                                    required="true" />
-                                                <label ng-show="form.password.$invalid" class="text-danger">Please enter Password between 5 and 30 characters
+                                                <form:input path="password" class="form-control" type="password" minlength="5" maxlength="30" required="true" />
+                                                <label class="invalid-feedback">Please enter Password between 5 and 30 characters
                                                 </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="phone">Phone: </form:label>
-                                                <form:input ng-model="phone" path="phone" class="form-control" type="tel" required="true" />
-                                                <label ng-show="form.phone.$invalid" class="text-danger">Please enter Phone </label>
+                                                <form:input path="phone" class="form-control" type="tel" required="true" />
+                                                <label class="invalid-feedback">Please enter Phone </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="address">Address: </form:label>
-                                                <form:input ng-model="address" path="address" class="form-control" type="text" required="true" />
-                                                <label ng-show="form.address.$invalid" class="text-danger">Please enter Address </label>
+                                                <form:input path="address" class="form-control" type="text" required="true" />
+                                                <label class="invalid-feedback">Please enter Address </label>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="activated">Is Activated: </form:label>
@@ -105,7 +102,12 @@
                                                 <form:radiobutton id="isAdmin1" path="admin" value="1" /> True
                                                 <form:radiobutton id="isAdmin2" path="admin" value="0" /> False
                                             </div>
-                                            <button class="btn btn-success" formaction="/admin/account/create" formmethod="post"
+                                            <div class="form-group mb-3">
+                                                <form:label path="verifycode">Verify code:</form:label>
+                                                <form:input path="verifycode" class="form-control" type="text" required="true" />
+                                                <label class="invalid-feedback">Please enter code </label>
+                                            </div>
+                                            <button id="createBtn" class="btn btn-success" formaction="/admin/account/create" formmethod="post"
                                                 ng-disabled="form.$invalid">CREATE</button>
                                             <button class="btn btn-secondary" formaction="/admin/account/update" formmethod="post"
                                                 ng-disabled="form.$invalid">UPDATE</button>
@@ -154,8 +156,11 @@
                                 </div>
                             </div>
                         </main>
+                        <!-- jquery -->
+                        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
                         <script>
+
                             let message = ""
                             if ("${param.message}" != "") {
                                 message += "Message: ${param.message}\n"
@@ -173,9 +178,6 @@
                                 alert(message);
                             }
 
-                            var app = angular.module("myapp", []);
-                            app.controller("myctl", function ($scope) {
-                            })
                         </script>
                         <!-- header -->
                         <jsp:include page="common/footer.jsp"></jsp:include>
