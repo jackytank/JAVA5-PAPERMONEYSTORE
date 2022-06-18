@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +15,7 @@ import com.edu.dao.OrderDetailDAO;
 import com.edu.dao.ProductDAO;
 import com.edu.entity.Account;
 import com.edu.entity.Order;
+import com.edu.model.AccountForm;
 import com.edu.service.ParamService;
 import com.edu.service.SessionService;
 import com.edu.service.ShoppingCartService;
@@ -54,7 +56,7 @@ public class ShoppingCartController {
     }
 
     @RequestMapping("/view")
-    public String view(ModelMap model) {
+    public String view(ModelMap model, @ModelAttribute("accForm") AccountForm accForm) {
         model.addAttribute("cartItems", cartService.getCartItems());
         model.addAttribute("totalAmount", cartService.getAmount());
         sessionService.set("cartQuantity", cartService.getCount());
