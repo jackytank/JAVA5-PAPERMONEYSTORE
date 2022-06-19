@@ -1,6 +1,6 @@
 # PaperMoneyStore
 
-This is a webapp selling antiques, banknotes, coins of Vietnam and the world, the frontend is developed by Bootstrap 5, AngularJS, JSP, the backend is developed by Spring Boot and Azure SQL Database. Users can use functions such as login, registration, forgot password, change password as well as add items to the cart. Admin can add, delete, edit, view list of products, accounts, categories, orders and view sales. Only the admin account can access the admin page.
+This is a webapp selling antiques, banknotes, coins of Vietnam and the world, the frontend is developed by Bootstrap 5, AngularJS, JSP, the backend is developed by Spring Boot and Azure SQL Database. Users can use functions such as login, registration, forgot password, change password as well as add items to the cart, user password is encrypted then save to the database. Admin can add, delete, edit, view list of products, accounts, categories, orders and view sales. Only the admin account can access the admin page.
 
 # Stack used
   ●	Stack:
