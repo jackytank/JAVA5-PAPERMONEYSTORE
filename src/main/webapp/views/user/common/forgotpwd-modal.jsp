@@ -6,11 +6,11 @@
                 <h5 class="md-flex justify-content-center">FORGOT PASSWORD</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="needs-validation" novalidate action="/account/forgotpwd" method="post">
+            <form class="needs-validation" novalidate="true" action="/account/forgotpwd" method="post">
                 <div class="modal-body">
                     <div class="mb-3 mt-3">
-                        <label for="forgot_email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email" name="forgotEmail" required>
+                        <label for="emailForgot" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="emailForgot" placeholder="Enter email" name="forgotEmail" required>
                         <div class="invalid-feedback">Please enter a valid email.</div>
                     </div>
                     <div class="modal-footer">
@@ -19,7 +19,6 @@
                             data-bs-target="#ForgotPasswordModal">Cancel</button>
                     </div>
             </form>
-
         </div>
     </div>
 </div>

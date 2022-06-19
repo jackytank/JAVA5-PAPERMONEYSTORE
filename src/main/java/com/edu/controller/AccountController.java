@@ -64,6 +64,12 @@ public class AccountController {
     @Autowired
     UserService userService;
 
+    @GetMapping("/account/signup")
+    public String signup(ModelMap model, @RequestParam(required = false) Optional<AccountForm> form) {
+        model.addAttribute("accForm", new AccountForm());
+        return "/user/signup";
+    }
+
     @PostMapping("/account/signup")
     public ModelAndView postSignup(ModelMap modelMap, @RequestParam("image") MultipartFile image,
             @ModelAttribute("accForm") AccountForm accForm, HttpServletRequest req)
@@ -90,7 +96,7 @@ public class AccountController {
         userService.register(account, getSiteURL(req));
 
         modelMap.addAttribute("message", "Please check your email to verify your account");
-        return new ModelAndView("redirect:/", modelMap);
+        return new ModelAndView("redirect:/account/signup", modelMap);
     }
 
     private String getSiteURL(HttpServletRequest req) {

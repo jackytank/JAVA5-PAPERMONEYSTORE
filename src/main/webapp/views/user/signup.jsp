@@ -3,25 +3,40 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
                 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+
                     <!DOCTYPE html>
-                    <html>
+                    <html lang="en">
 
                     <head>
-                        <meta charset="ISO-8859-1">
-                        <title>Insert title here</title>
+                        <meta charset="UTF-8" />
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <title>Signup</title>
+                        <!-- title icon -->
+                        <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+                        <!-- bootstrap css -->
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+                            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+                        <!-- font awsome -->
+                        <script src="https://kit.fontawesome.com/e136359f35.js" crossorigin="anonymous" defer></script>
+                        <!-- jquery -->
+                        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script> -->
+                        <!-- my js -->
+                        <script src="/js/script.js" defer></script>
                     </head>
 
                     <body>
-                        <!--SIGNUP MODAL-->
-                        <div class="modal fade" id="SignupModal" tabindex="-1" aria-labelledby="SignupModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="md-flex justify-content-center">SIGNUP</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="container">
+                            <!-- header -->
+                            <jsp:include page="common/header.jsp"></jsp:include>
+
+                            <div class="row d-flex justify-content-center">
+                                <div class="card my-3" style="width: 50rem;">
+                                    <div class="bg-white card-header text-center">
+                                        <h3>Signup</h3>
                                     </div>
-                                    <div class="modal-body mb-3">
-                                        <form:form class="needs-validation" novalidate="true" action="/account/signup" method="post" name="frm"
+                                    <div class="card-body">
+                                        <form:form class="needs-validation" novalidate="true" action="/account/signup" method="post"
                                             enctype="multipart/form-data" modelAttribute="accForm">
                                             <div class="signup mt-3">
                                                 <div class="form-group mb-3">
@@ -88,14 +103,39 @@
                                                 </div>
                                                 <hr>
                                             </div>
-                                            <div class="d-grid gap-2">
-                                                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                                            <div class="modal-footer">
+                                                <div class="d-grid gap-2">
+                                                    <button type="submit" class="btn btn-primary">SUBMIT</button>
+                                                </div>
                                             </div>
                                         </form:form>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- footer -->
+                            <jsp:include page="common/footer.jsp"></jsp:include>
                         </div>
+
+
+                        <!-- bootstrap js -->
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+                            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+                        <script>
+                            let message = ""
+                            if ("${param.message}" != "") {
+                                message += "Message: ${param.message}\n"
+                            }
+                            if ("${param.error}" != "") {
+                                message += "Error: ${param.error}\n"
+                            }
+                            if ("${message}" != "") {
+                                message += "Message: ${message}\n"
+                            }
+                            if (message !== "") {
+                                alert(message);
+                            }
+                        </script>
                     </body>
 
                     </html>

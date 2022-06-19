@@ -34,6 +34,7 @@ import com.edu.model.AccountForm;
 import com.edu.model.ProductForm;
 import com.edu.service.ParamService;
 import com.edu.service.SessionService;
+import com.edu.service.impl.CommonService;
 import com.edu.utils.CommonUtils;
 
 @Controller
@@ -53,11 +54,16 @@ public class ProductController {
     @Autowired
     CommonUtils common;
 
+    @Autowired
+    SessionService session;
+
     @RequestMapping("/product/page")
     public String paginate(ModelMap model, @RequestParam("page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 6);
         Page<Product> pages = productDAO.findAll(pageable);
         model.addAttribute("page", pages);
+        model.addAttribute("isLogin", CommonService.isLogin);
+        model.addAttribute("sessionUsername", session.get("username"));
         return "user/index";
     }
 
@@ -69,6 +75,8 @@ public class ProductController {
         Page<Product> relevantProducts = productDAO.findAll(limit);
         model.addAttribute("product", product);
         model.addAttribute("relevantProducts", relevantProducts);
+        model.addAttribute("isLogin", CommonService.isLogin);
+        model.addAttribute("sessionUsername", session.get("username"));
         return "user/detail";
     }
 
@@ -88,6 +96,8 @@ public class ProductController {
         }
 
         model.addAttribute("page", pages);
+        model.addAttribute("isLogin", CommonService.isLogin);
+        model.addAttribute("sessionUsername", session.get("username"));
         return "user/index";
     }
 

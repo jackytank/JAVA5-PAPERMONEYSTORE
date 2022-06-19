@@ -19,6 +19,7 @@ import com.edu.model.AccountForm;
 import com.edu.service.ParamService;
 import com.edu.service.SessionService;
 import com.edu.service.ShoppingCartService;
+import com.edu.service.impl.CommonService;
 
 @Controller
 @RequestMapping("/cart")
@@ -60,6 +61,8 @@ public class ShoppingCartController {
         model.addAttribute("cartItems", cartService.getCartItems());
         model.addAttribute("totalAmount", cartService.getAmount());
         sessionService.set("cartQuantity", cartService.getCount());
+        model.addAttribute("isLogin", CommonService.isLogin);
+        model.addAttribute("sessionUsername", sessionService.get("username"));
         return "user/cart";
     }
 
