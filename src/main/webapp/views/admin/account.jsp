@@ -28,6 +28,7 @@
                     </head>
 
                     <body>
+
                         <!-- header -->
                         <jsp:include page="common/header.jsp"></jsp:include>
 
@@ -36,11 +37,11 @@
                             <div class="container w-75">
                                 <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#edit" type="button" role="tab"
+                                        <button class="nav-link active" id="form-tab" data-bs-toggle="tab" data-bs-target="#edit" type="button" role="tab"
                                             aria-controls="home" aria-selected="true">Edit</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab"
+                                        <button class="nav-link" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab"
                                             aria-controls="profile" aria-selected="false">List</button>
                                     </li>
                                 </ul>
@@ -118,17 +119,22 @@
 
                                     <!-- list tab -->
                                     <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+                                        <div class="row bg-light p-3">
+                                            <div class="text-center">
+                                                <h3 class="text-capitalize">SORT ACCOUNT BY <span class="fw-bold">${field}</span></h3>
+                                            </div>
+                                        </div>
                                         <table class="table table-hover" style="table-layout: fixed; word-wrap: break-word;">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Image</th>
-                                                    <th scope="col">Username</th>
-                                                    <th scope="col">Email</th>
-                                                    <th style="width:25%" scope="col">Password</th>
-                                                    <th scope="col">Phone</th>
-                                                    <th scope="col">Address</th>
-                                                    <th scope="col">Activated?</th>
-                                                    <th scope="col">Admin?</th>
+                                                    <th scope="col"><a href="/admin/account/sort?field=id">Username</a></th>
+                                                    <th scope="col"><a href="/admin/account/sort?field=email">Email</a></th>
+                                                    <th style="width:25%" scope="col"><a href="/admin/account/sort?field=password">Password</a></th>
+                                                    <th scope="col"><a href="/admin/account/sort?field=phone">Phone</a></th>
+                                                    <th scope="col"><a href="/admin/account/sort?field=address">Address</a></th>
+                                                    <th scope="col"><a href="/admin/account/sort?field=activated">Activated?</a></th>
+                                                    <th scope="col"><a href="/admin/account/sort?field=admin">Admin?</a></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -177,6 +183,7 @@
                             if (message !== "") {
                                 alert(message);
                             }
+
 
                         </script>
                         <!-- header -->

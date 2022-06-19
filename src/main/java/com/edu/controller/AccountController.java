@@ -14,6 +14,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -291,5 +293,15 @@ public class AccountController {
 
         modelMap.addAttribute("message", "Create success!! Username: " + account.getId());
         return new ModelAndView("redirect:/admin/account", modelMap);
+    }
+
+    @RequestMapping("/admin/account/sort")
+    public String accountSort(ModelMap model, @RequestParam("field") Optional<String> field) {
+        Sort sort = Sort.by(Sort.Direction.DESC, field.orElse("id"));
+        model.addAttribute("field", field.orElse("id").toUpperCase());
+        List<Account> accounts = dao.findAll(sort);
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("account", new Account());
+        return "admin/account";
     }
 }

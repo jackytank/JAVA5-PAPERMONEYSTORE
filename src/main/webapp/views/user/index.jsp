@@ -43,9 +43,9 @@
 											<c:forEach var="item" items="${page.content}" varStatus="loop">
 												<div class="col">
 													<div class="card mb-3" style="width: 18rem">
-														<img src="/upload/product/${item.image}" class="card-img-top" width="250" height="250" alt="..." />
+														<img src="/upload/product/${item.image}" class="card-img-top rounded" width="250" height="250" alt="..." />
 														<div class="card-body">
-															<h5 class="card-title">${item.name}</h5>
+															<h5 class="card-title fs-4">${item.name}</h5>
 															<p class="card-text">Price: <span class="fw-bold text-success">${item.price} $</span></p>
 															<a href="/product/detail/${item.id}" class="btn btn-secondary">Detail</a> <a
 																href="/cart/add/${item.id}" class="btn btn-primary">Add to cart</a>
