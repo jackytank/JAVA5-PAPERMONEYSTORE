@@ -19,7 +19,7 @@
 						<!-- font awsome -->
 						<script src="https://kit.fontawesome.com/e136359f35.js" crossorigin="anonymous" defer></script>
 						<!-- jquery -->
-						<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script> -->
+						<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer></script>
 						<!-- my js -->
 						<script src="/js/script.js" defer></script>
 					</head>
