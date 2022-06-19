@@ -3,15 +3,15 @@
 This is a webapp selling antiques, banknotes, coins of Vietnam and the world, the frontend is developed by Bootstrap 5, AngularJS, JSP, the backend is developed by Spring Boot and Azure SQL Database. Users can use functions such as login, registration, forgot password, change password as well as add items to the cart, user password is encrypted then save to the database. Admin can add, delete, edit, view list of products, accounts, categories, orders and view sales. Only the admin account can access the admin page.
 
 # Stack used
-  ●	Stack:
-  -	Frontend: AngularJS, JSP, Bootstrap 5, JQuery
-  -	Backend: Spring Boot, Spring Data JPA
-  -	Database: Azure SQL Database, SQL Server 2019
-  ●	Software:
-  -	Spring Tool Suite 4.14
-  -	Visual Studio Code + Spring Boot extension
-  -	Intellij IDEA Ultimate
-  -	JDK 11
+  *	Stack:
+    -	Frontend: AngularJS, JSP, Bootstrap 5, JQuery
+    -	Backend: Spring Boot, Spring Data JPA
+    -	Database: Azure SQL Database, SQL Server 2019
+  *	Software:
+    -	Spring Tool Suite 4.14
+    -	Visual Studio Code + Spring Boot extension
+    -	Intellij IDEA Ultimate
+    -	JDK 11
 
 # Guide
   - Clone this repo, run the sql script to create database, then change database credentials in application.properties according to your database info
