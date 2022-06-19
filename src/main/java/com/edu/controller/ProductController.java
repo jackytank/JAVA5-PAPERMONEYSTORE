@@ -137,14 +137,14 @@ public class ProductController {
         if (!image.getOriginalFilename().equals("")) {
             product.setImage(image.getOriginalFilename());
         } else {
-            if (product.getImage() == null) {
+            if (form.getImage() == null) {
                 product.setImage("default.jpg");
             } else {
                 product.setImage(productDAO.getById(product.getId()).getImage());
             }
         }
         // check if category id not existed then show error message
-        if (!categoryDAO.existsCategoryById(form.getCategoryid().getId())) {
+        if (!categoryDAO.existsCategoryById(product.getCategoryid().getId())) {
             modelMap.addAttribute("message", "CategoryId not exist!!");
             return new ModelAndView("redirect:/admin/product", modelMap);
         }
@@ -167,23 +167,19 @@ public class ProductController {
         Product product = new Product();
         BeanUtils.copyProperties(form, product);
         product.setCreatedate(LocalDate.now());
-        if (!image.getOriginalFilename().equals("")) {
+        if (image != null && !image.getOriginalFilename().equals("")) {
             product.setImage(image.getOriginalFilename());
         } else {
-            if (product.getImage() == null) {
-                product.setImage("default.jpg");
-            } else {
-                product.setImage(productDAO.getById(product.getId()).getImage());
-            }
+            product.setImage("default.jpg");
         }
+        System.out.println(form.toString());
+        System.out.println(product.toString());
 
         // check if category id not existed then show error message
         if (!categoryDAO.existsCategoryById(product.getCategoryid().getId())) {
             modelMap.addAttribute("message", "CategoryId not exist!!");
             return new ModelAndView("redirect:/admin/product", modelMap);
         }
-        System.out.println(form.toString());
-        System.out.println(product.toString());
         productDAO.save(product);
         common.saveFile(image, "product");
         modelMap.addAttribute("message", "Create success!! Product name: " + product.getName());

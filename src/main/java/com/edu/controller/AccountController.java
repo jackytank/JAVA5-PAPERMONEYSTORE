@@ -284,18 +284,14 @@ public class AccountController {
             return new ModelAndView("redirect:/admin/account", modelMap);
         }
         // check if image name is null
-        if (!image.getOriginalFilename().equals("")) {
+        if (image != null && !image.getOriginalFilename().equals("")) {
             account.setImage(image.getOriginalFilename());
         } else {
-            if (image.getOriginalFilename() == null) {
-                account.setImage("default.jpg");
-            } else {
-                account.setImage(dao.getById(account.getId()).getImage());
-                common.saveFile(image, "user");
-            }
+            account.setImage("default.jpg");
         }
 
         userService.save(account);
+        common.saveFile(image, "user");
 
         modelMap.addAttribute("message", "Create success!! Username: " + account.getId());
         return new ModelAndView("redirect:/admin/account", modelMap);

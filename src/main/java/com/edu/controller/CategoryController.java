@@ -58,8 +58,8 @@ public class CategoryController {
 
     @PostMapping("/admin/category/update")
     public ModelAndView update(@ModelAttribute("category") Category category, ModelMap modelMap) {
-        if (dao.existsCategoryById(category.getId())) {
-            modelMap.addAttribute("message", "CategoryId already existed!!");
+        if (!dao.existsCategoryById(category.getId())) {
+            modelMap.addAttribute("message", "CategoryId is not existed!!");
             return new ModelAndView("redirect:/admin/category", modelMap);
         }
         if (dao.existsCategoryByName(category.getName())) {

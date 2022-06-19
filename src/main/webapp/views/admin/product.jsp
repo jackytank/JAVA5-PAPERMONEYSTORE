@@ -79,7 +79,7 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="price">Price: </form:label>
-                                                <form:input path="price" min="1" ng-model="price" class="form-control" type="number" />
+                                                <form:input path="price" min="1" ng-model="price" class="form-control" type="number" required="true"/>
                                                 <label class="invalid-feedback">Please enter price and must not be a negative
                                                     number !!</label>
                                             </div>
@@ -93,8 +93,8 @@
                                                 <form:input path="createdate" class="form-control" type="date" readonly="true" />
                                             </div>
                                             <div class="form-group mb-3">
-                                                <form:label path="categoryid">Category:</form:label>
-                                                <form:input path="categoryid" required="true" class="form-control" type="text" />
+                                                <form:label path="categoryid.id">Category:</form:label>
+                                                <form:input path="categoryid.id" required="true" class="form-control" type="text" />
                                                 <label class="invalid-feedback">Please enter category</label>
                                             </div>
                                             <button class="btn btn-success" formaction="/admin/product/create" formmethod="post"
