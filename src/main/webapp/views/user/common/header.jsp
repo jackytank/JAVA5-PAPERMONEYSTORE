@@ -21,7 +21,7 @@
 							</a>
 						</ul>
 						<div class="col-md-3 text-end mb-2">
-							<c:if test="${sessionUsername != null}">
+							<c:if test="${isLogin}">
 								<span class="align-self-center text-nowrap me-2">Hi <span class="fw-bold">
 										<% String name=(String)session.getAttribute("username"); out.print(name); %>
 									</span></span>
@@ -52,11 +52,12 @@
 												<!--CHANGE PASSWORD BUTTON TO ACTIVE CHANGE PASSWORD MODAL-->
 										</c:if>
 										<c:if test="${isLogin}">
-											<li><a class="dropdown-item" href="/account/logout">Logout</a></li>
 											<li>
 												<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ChangePasswordModal">Change
 													password</a>
 											</li>
+											<li><a class="dropdown-item" href="/account/update">Edit Profile</a></li>
+											<li><a class="dropdown-item" href="/account/logout">Logout</a></li>
 										</c:if>
 									</ul>
 								</div>
@@ -76,12 +77,16 @@
 					</div>
 
 					<!--                                         MODAL SECTION                                     -->
+					<!--CHANGE PASSWORD MODAL-->
+					<jsp:include page="changepwd-modal.jsp" />
 					<!--FORGOT PASSWORD MODAL-->
 					<jsp:include page="forgotpwd-modal.jsp" />
 
-					<!--CHANGE PASSWORD MODAL-->
-					<jsp:include page="changepwd-modal.jsp" />
 
+					<script>
+						const myModal1 = new bootstrap.Modal(document.getElementById('ForgotPasswordModal'), options)
+						const myModal2 = new bootstrap.Modal(document.getElementById('ChangePasswordModal'), options)
+					</script>
 				</header>
 
 				<!-- marquee - running text -->

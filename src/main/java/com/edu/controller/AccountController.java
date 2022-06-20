@@ -93,15 +93,10 @@ public class AccountController {
             }
         }
 
-        userService.register(account, getSiteURL(req));
+        userService.register(account, CommonService.getSiteURL(req));
 
         modelMap.addAttribute("message", "Please check your email to verify your account");
         return new ModelAndView("redirect:/account/signup", modelMap);
-    }
-
-    private String getSiteURL(HttpServletRequest req) {
-        String siteURL = req.getRequestURL().toString();
-        return siteURL.replace(req.getServletPath(), "");
     }
 
     @GetMapping("/verify")
@@ -174,7 +169,7 @@ public class AccountController {
         try {
             Account user = dao.findById(session.get("username")).get();
             if (user != null) {
-                if (!user.getPassword().equals(oldPassword)) {
+                if (!Bcryptor.matches(oldPassword, user.getPassword())) {
                     modelMap.addAttribute("message", "Old password is incorrect!!");
                     return new ModelAndView("redirect:/", modelMap);
                 }
@@ -198,13 +193,60 @@ public class AccountController {
         return new ModelAndView("redirect:/", modelMap);
     }
 
+    @GetMapping("/account/update")
+    public ModelAndView getEditprofile(@RequestParam(required = false) String message,
+            @RequestParam(required = false) String error, ModelMap modelMap) {
+        Account account = dao.getById((String) session.get("username"));
+        if (account.getAdmin()) {
+            modelMap.addAttribute("message", "Access denied!! Can't edit private account");
+            return new ModelAndView("redirect:/account/logout", modelMap);
+        }
+        modelMap.addAttribute("account", account);
+        modelMap.addAttribute("isLogin", CommonService.isLogin);
+        return new ModelAndView("user/editprofile", modelMap);
+    }
+
+    @PostMapping("/account/update")
+    public ModelAndView postEditprofile(ModelMap modelMap, @RequestParam("image") MultipartFile image,
+            @ModelAttribute("account") AccountForm form) {
+        Account oldAcc = dao.getById((String) session.get("username"));
+        Account newAcc = new Account();
+        BeanUtils.copyProperties(form, newAcc);
+
+        // check if username is not existed then show error
+        if (!dao.existsAccountById(newAcc.getId())) {
+            modelMap.addAttribute("message", "Username is not existed!!");
+            return new ModelAndView("redirect:/account/update", modelMap);
+        }
+
+        // check if image name is null
+        if (!image.getOriginalFilename().equals("")) {
+            newAcc.setImage(image.getOriginalFilename());
+        } else {
+            if (image.getOriginalFilename() == null) {
+                newAcc.setImage("default.jpg");
+            } else {
+                newAcc.setImage(dao.getById(newAcc.getId()).getImage());
+            }
+        }
+        newAcc.setActivated(oldAcc.getActivated());
+        newAcc.setAdmin(oldAcc.getAdmin());
+        newAcc.setVerifycode(oldAcc.getVerifycode());
+        System.out.println("Edit profile: " + newAcc.toString());
+        userService.save(newAcc);
+        common.saveFile(image, "user");
+        modelMap.addAttribute("message", "Update success!!");
+        return new ModelAndView("redirect:/account/update", modelMap);
+    }
+
     @RequestMapping("/account/logout")
-    public ModelAndView logout(ModelMap model) {
+    public ModelAndView logout(ModelMap model, @RequestParam(required = false) String message) {
         CommonService.isLogin = false;
         session.remove("user");
         session.remove("username");
         session.remove("security-uri");
         model.addAttribute("isLogin", false);
+        model.addAttribute("message", message);
         return new ModelAndView("redirect:/", model);
     }
 

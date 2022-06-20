@@ -36,14 +36,14 @@ public class Account {
     @Column(name = "verifycode", length = 100)
     private String verifycode;
 
-
-
-
+    @Column(name = "reset_password_token", length = 100)
+    private String resetPasswordToken;
 
     public Account() {
     }
 
-    public Account(String id, String email, String password, String phone, String address, Boolean admin, String image, Boolean activated, String verifycode) {
+    public Account(String id, String email, String password, String phone, String address, Boolean admin, String image,
+            Boolean activated, String verifycode, String resetPasswordToken) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -53,6 +53,7 @@ public class Account {
         this.image = image;
         this.activated = activated;
         this.verifycode = verifycode;
+        this.resetPasswordToken = resetPasswordToken;
     }
 
     public String getId() {
@@ -135,6 +136,14 @@ public class Account {
         this.verifycode = verifycode;
     }
 
+    public String getResetPasswordToken() {
+        return this.resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
     public Account id(String id) {
         setId(id);
         return this;
@@ -180,6 +189,11 @@ public class Account {
         return this;
     }
 
+    public Account resetPasswordToken(String resetPasswordToken) {
+        setResetPasswordToken(resetPasswordToken);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -188,28 +202,34 @@ public class Account {
             return false;
         }
         Account account = (Account) o;
-        return Objects.equals(id, account.id) && Objects.equals(email, account.email) && Objects.equals(password, account.password) && Objects.equals(phone, account.phone) && Objects.equals(address, account.address) && Objects.equals(admin, account.admin) && Objects.equals(image, account.image) && Objects.equals(activated, account.activated) && Objects.equals(verifycode, account.verifycode);
+        return Objects.equals(id, account.id) && Objects.equals(email, account.email)
+                && Objects.equals(password, account.password) && Objects.equals(phone, account.phone)
+                && Objects.equals(address, account.address) && Objects.equals(admin, account.admin)
+                && Objects.equals(image, account.image) && Objects.equals(activated, account.activated)
+                && Objects.equals(verifycode, account.verifycode)
+                && Objects.equals(resetPasswordToken, account.resetPasswordToken);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, phone, address, admin, image, activated, verifycode);
+        return Objects.hash(id, email, password, phone, address, admin, image, activated, verifycode,
+                resetPasswordToken);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", password='" + getPassword() + "'" +
-            ", phone='" + getPhone() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", admin='" + isAdmin() + "'" +
-            ", image='" + getImage() + "'" +
-            ", activated='" + isActivated() + "'" +
-            ", verifycode='" + getVerifycode() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", email='" + getEmail() + "'" +
+                ", password='" + getPassword() + "'" +
+                ", phone='" + getPhone() + "'" +
+                ", address='" + getAddress() + "'" +
+                ", admin='" + isAdmin() + "'" +
+                ", image='" + getImage() + "'" +
+                ", activated='" + isActivated() + "'" +
+                ", verifycode='" + getVerifycode() + "'" +
+                ", resetPasswordToken='" + getResetPasswordToken() + "'" +
+                "}";
     }
-   
 
 }

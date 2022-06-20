@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface AccountDAO extends JpaRepository<Account, String> {
-    @Query("SELECT password FROM Account WHERE email=?1")
-    public String findByEmail(String email);
+    @Query("SELECT o FROM Account o WHERE email=?1")
+    public Account findByEmail(String email);
+
+    public Account findByResetPasswordToken(String token);
 
     @Query("SELECT o FROM Account o WHERE verifycode=?1")
     public Account findByVerifyCode(String code);
