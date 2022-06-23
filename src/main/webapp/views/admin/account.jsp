@@ -125,8 +125,9 @@
                                             </div>
                                         </div>
                                         <hr>
-                                        <div class="row"> 
+                                        <div class="row">
                                             <div class="text-end">
+                                                <a href="/admin/account/export-pdf" class="btn btn-info  text-white fw-bold">Export PDF</a>
                                                 <a href="/admin/account/export-excel" class="btn btn-info  text-white fw-bold">Export Excel</a>
                                             </div>
                                         </div>

@@ -104,6 +104,13 @@
             <artifactId>tiles-jsp</artifactId>
             <version>3.0.8</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.librepdf/openpdf -->
+        <dependency>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>1.3.28</version>
+        </dependency>
+
     </dependencies>
 
     <build>

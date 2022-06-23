@@ -32,6 +32,7 @@ import com.edu.service.SessionService;
 import com.edu.service.UserService;
 import com.edu.service.impl.CommonService;
 import com.edu.utils.ExcelExporter;
+import com.edu.utils.PdfExporter;
 
 @Controller
 public class AdminAccountController {
@@ -162,6 +163,22 @@ public class AdminAccountController {
         List<Account> listAcc = dao.findAll();
         ExcelExporter<Account> excelExporter = new ExcelExporter<Account>(listAcc, "accounts");
         excelExporter.export(response);
+    }
+
+    @GetMapping("/admin/account/export-pdf")
+    public void exportToPdf(HttpServletResponse response) throws IOException {
+        response.setContentType("appplication/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=accounts_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<Account> listAcc = dao.findAll();
+
+        PdfExporter<Account> pdfExporter = new PdfExporter<Account>(listAcc);
+        pdfExporter.export(response);
     }
 
 }
