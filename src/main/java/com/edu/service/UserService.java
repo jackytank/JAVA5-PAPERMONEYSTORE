@@ -2,8 +2,6 @@ package com.edu.service;
 
 import javax.mail.MessagingException;
 
-import org.apache.tomcat.util.security.MD5Encoder;
-import org.bouncycastle.jcajce.provider.asymmetric.rsa.ISOSignatureSpi.MD5WithRSAEncryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

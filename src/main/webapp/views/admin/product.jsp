@@ -79,7 +79,7 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <form:label path="price">Price: </form:label>
-                                                <form:input path="price" min="1" ng-model="price" class="form-control" type="number" required="true"/>
+                                                <form:input path="price" min="1" ng-model="price" class="form-control" type="number" required="true" />
                                                 <label class="invalid-feedback">Please enter price and must not be a negative
                                                     number !!</label>
                                             </div>
@@ -108,6 +108,18 @@
 
                                     <!-- list tab -->
                                     <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+                                        <div class="row bg-light p-2">
+                                            <div class="text-center">
+                                                <h3 class="text-capitalize">SORT PRODUCT BY <span class="fw-bold">a</span></h3>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="text-end">
+                                                <a href="/admin/product/export-excel" class="btn btn-info  text-white fw-bold">Export Excel</a>
+                                            </div>
+                                        </div>
+                                        <hr>
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
