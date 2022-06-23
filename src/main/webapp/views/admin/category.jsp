@@ -69,6 +69,18 @@
 
                                     <!-- list tab -->
                                     <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+                                        <div class="row bg-light p-2">
+                                            <div class="text-center">
+                                                <h3 class="text-capitalize">SORT CATEGORY BY <span class="fw-bold">A</span></h3>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="text-end">
+                                                <a href="/admin/category/export-excel" class="btn btn-info  text-white fw-bold">Export Excel</a>
+                                            </div>
+                                        </div>
+                                        <hr>
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>

@@ -1,7 +1,14 @@
 package com.edu.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +29,18 @@ import com.edu.dao.ProductDAO;
 import com.edu.entity.Category;
 import com.edu.entity.Product;
 import com.edu.service.ParamService;
+import com.edu.dao.CategoryDAO;
+import com.edu.dao.ProductDAO;
+import com.edu.entity.Account;
+import com.edu.entity.Category;
+import com.edu.entity.Product;
+import com.edu.model.AccountForm;
+import com.edu.model.ProductForm;
+import com.edu.service.ParamService;
+import com.edu.service.SessionService;
+import com.edu.service.impl.CommonService;
+import com.edu.utils.CommonUtils;
+import com.edu.utils.ExcelExporter;
 
 @Controller
 public class CategoryController {
@@ -85,5 +104,21 @@ public class CategoryController {
         dao.save(category);
         modelMap.addAttribute("message", "Create success!! Category name: " + category.getName());
         return new ModelAndView("redirect:/admin/category", modelMap);
+    }
+
+    @GetMapping("/admin/category/export-excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("appplication/octet-stream");
+        // set ngày giờ thời gian hiện tại trước khi xuất ra excel
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        // set các thông số header, filename cho file excel
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=categories_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+        List<Category> listProd = dao.findAll();
+        ExcelExporter<Category> excelExporter = new ExcelExporter<Category>(listProd, "categories");
+        excelExporter.export(response);
     }
 }

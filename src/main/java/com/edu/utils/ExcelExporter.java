@@ -1,6 +1,9 @@
 package com.edu.utils;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -12,6 +15,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.boot.autoconfigure.web.format.DateTimeFormatters;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.edu.entity.Account;
 import com.edu.entity.Category;
@@ -102,6 +107,16 @@ public class ExcelExporter<T> {
                 createCell(row, colCount++, product.getAvailable(), style);
                 createCell(row, colCount++, product.getCreatedate(), style);
                 createCell(row, colCount++, product.getCategoryid().getName(), style);
+            } else if (item instanceof Category) {
+                Category category = (Category) item;
+                createCell(row, colCount++, category.getId(), style);
+                createCell(row, colCount++, category.getName(), style);
+            } else if (item instanceof Order) {
+                Order order = (Order) item;
+                createCell(row, colCount++, order.getId(), style);
+                createCell(row, colCount++, order.getAddress(), style);
+                createCell(row, colCount++, order.getCreatedate(), style);
+                createCell(row, colCount++, order.getUsername().getId(), style);
             }
         }
     }
@@ -118,6 +133,12 @@ public class ExcelExporter<T> {
             cell.setCellValue((Double) value);
         } else if (value instanceof Integer) {
             cell.setCellValue((Integer) value);
+        } else if (value instanceof Date) {
+            cell.setCellValue((Date) value);
+        } else if (value instanceof LocalDate) {
+            cell.setCellValue(((LocalDate) value).format(DateTimeFormatter.ISO_DATE));
+        } else {
+            cell.setCellValue("");
         }
         cell.setCellStyle(style);
     }
